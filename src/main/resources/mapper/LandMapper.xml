@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.estate.frontier.mapper.LandInterface">
+	<insert id="save"
+		parameterType="com.estate.frontier.model.LandInfo">
+		INSERT INTO land_report
+		(id, projectName,
+		assessReportNum, assessStartTime, assessEndTime,
+		assessObject,
+		valueTime, assessAim, assessMethod, reportType,
+		branchOffice,
+		upFileURI, landSite, landArea, landAmount,
+		assessUnitPrice,
+		assessTotalPrice, client, clientEmail, clientPhone,
+		firstReporter,
+		partReporter1, partReporter1RgNum, partReporter2,
+		partReporter2RgNum,
+		serviceSource, serviceCharge, checker, assessOrg,wordUri,pdfUri,firstReporterRgNum)
+		VALUES(#{id},
+		#{projectName}, #{assessReportNum},
+		#{assessStartTime},
+		#{assessEndTime}, #{assessObject}, #{valueTime},
+		#{assessAim},
+		#{assessMethod},
+		#{reportType}, #{branchOffice},
+		#{upFileURI},
+		#{landSite},
+		#{landArea}, #{landAmount},
+		#{assessUnitPrice},#{assessTotalPrice},#{client},#{clientEmail},#{clientPhone},
+		#{firstReporter},
+		#{partReporter1},
+		#{partReporter1RgNum},
+		#{partReporter2},
+		#{partReporter2RgNum},#{serviceSource},
+		#{serviceCharge}, #{checker},#{assessOrg}
+		, #{wordUri},#{pdfUri},#{firstReporterRgNum});
+	</insert>
+	<update id="update"
+		parameterType="com.estate.frontier.model.LandInfo">
+		UPDATE
+		land_report SET
+		projectName=#{projectName},
+		assessReportNum=#{assessReportNum},
+		assessStartTime=#{assessStartTime},assessEndTime=#{assessEndTime},
+		assessObject=#{assessObject}, valueTime=#{valueTime},
+		assessAim=#{assessAim},
+		assessMethod=#{assessMethod},reportType=#{reportType},
+		branchOffice=#{branchOffice},upFileURI=#{upFileURI},
+		landSite=#{landSite}, landArea=#{landArea},
+		landAmount=#{landAmount},
+		assessUnitPrice=#{assessUnitPrice},
+		assessTotalPrice=#{assessTotalPrice}, client=#{client},
+		clientEmail=#{clientEmail},clientPhone=#{clientPhone},
+		firstReporter=#{firstReporter}, partReporter1=#{partReporter1},
+		partReporter1RgNum=#{partReporter1RgNum},partReporter2=#{partReporter2},
+		partReporter2RgNum=#{partReporter2RgNum},serviceSource=#{serviceSource},
+		serviceCharge=#{serviceCharge},
+		checker=#{checker},assessOrg=#{assessOrg},wordUri=#{wordUri},pdfUri=#{pdfUri},firstReporterRgNum=#{firstReporterRgNum}
+		WHERE
+		id=#{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE from
+		land_report WHERE id = #{id}
+	</delete>
+	<select id="get" parameterType="int"
+		resultType="com.estate.frontier.model.LandInfo">
+		SELECT id, projectName, assessReportNum, assessStartTime,
+		assessEndTime, assessObject, valueTime, assessAim, assessMethod,
+		reportType, branchOffice, upfileuri, landSite, landArea, landAmount,
+		assessUnitPrice, assessTotalPrice, client, clientEmail, clientPhone,
+		firstReporter, partReporter1, partReporter1RgNum, partReporter2,
+		partReporter2RgNum, serviceSource, serviceCharge, checker, assessOrg,wordUri,pdfUri,firstReporterRgNum
+		FROM land_report
+		where id=#{id}
+	</select>
+</mapper>

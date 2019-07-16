@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.estate.frontier.mapper.AssessInterface">
+	<insert id="save"
+		parameterType="com.estate.frontier.model.AssessInfo">
+		insert into  assess_report
+		(id,applicationNum, serviceSource, checker, assessOrg,
+		branchOffice, upFileURI,reportType,wordUri,pdfUri)
+		VALUES
+		(#{id},#{applicationNum},#{serviceSource},
+		#{checker},
+		#{assessOrg},
+		#{branchOffice},
+		#{upFileURI},#{reportType},#{wordUri},#{pdfUri});
+	</insert>
+	<update id="update"
+		parameterType="com.estate.frontier.model.AssessInfo">
+		UPDATE
+		assess_report SET
+		applicationNum=#{applicationNum},
+		serviceSource=#{serviceSource},
+		checker=#{checker},assessOrg=#{assessOrg},
+		branchOffice=#{branchOffice}, upFileUri=#{upFileURI},wordUri=#{wordUri},pdfUri=#{pdfUri}
+		WHERE
+		id=#{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE from
+		assess_report WHERE id = #{id}
+	</delete>
+	<select id="get" parameterType="int"
+		resultType="com.estate.frontier.model.AssessInfo">
+		SELECT id, applicationNum, serviceSource, checker,
+		assessOrg, branchOffice, upFileUri,wordUri,pdfUri,reportType
+		FROM assess_report
+		where id=#{id}
+	</select>
+</mapper>

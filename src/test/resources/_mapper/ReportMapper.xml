@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.estate.frontier.mapper.ReportInterFace">
+	<insert id="save"
+		parameterType="com.estate.frontier.model.ReportInfo"
+		useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO
+		estate.report
+		(orderNum, applicationNum,
+		branchOffice, assessAim,
+		reportType,
+		applicationDate, state,
+		checkResult, applicant)
+		VALUES
+		(
+		#{orderNum},
+		#{applicationNum},
+		#{branchOffice}, #{assessAim},
+		#{reportType},
+		#{applicationDate},
+		#{state},#{checkResult},#{applicant});
+	</insert>
+	<update id="update"
+		parameterType="com.estate.frontier.model.ReportInfo">
+		UPDATE
+		estate.report SET
+			orderNum = #{orderNum},
+			applicationNum =#{applicationNum},
+			branchOffice=#{branchOffice},
+			assessAim= #{assessAim},
+			reportType=#{reportType},
+			applicationDate =#{applicationDate},
+			state=#{state},
+			checkResult=#{checkResult},
+			applicant=#{applicant}
+		WHERE id=#{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from estate.report where id =#{id}
+	</delete>
+	<select id="getAllReports"
+		resultType="com.estate.frontier.model.ReportInfo">
+		select id,orderNum, applicationNum,
+		branchOffice,
+		assessAim,
+		reportType,
+		applicationDate, state,
+		checkResult, applicant
+		from
+		estate.report
+	</select>
+	<select id="getReportsByCondition"
+		resultType="com.estate.frontier.model.ReportInfo">
+		select id,orderNum, applicationNum,
+		branchOffice,
+		assessAim,
+		reportType,
+		applicationDate, state,
+		checkResult, applicant
+		from
+		estate.report
+		<where>
+			<if test="state !=null and state.length>0">state=#{state}</if>
+			<if test="branchOffice !=null and branchOffice.length>0">and branchOffice=#{branchOffice}</if>
+		</where>
+	</select>
+</mapper>

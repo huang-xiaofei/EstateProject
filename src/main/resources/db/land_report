@@ -1,0 +1,35 @@
+CREATE TABLE `estate`.`land_report` (
+  `id` int(5) NOT NULL,
+  `projectName` varchar(60) NOT NULL,
+  `assessReportNum` varchar(40) DEFAULT NULL,
+  `assessStartTime` date DEFAULT NULL,
+  `assessEndTime` date DEFAULT NULL,
+  `assessObject` varchar(60) DEFAULT NULL,
+  `valueTime` date DEFAULT NULL,
+  `assessAim` varchar(10) DEFAULT NULL,
+  `assessMethod` varchar(10) DEFAULT NULL,
+  `reportType` varchar(10) DEFAULT NULL,
+  `branchOffice` varchar(10) DEFAULT NULL,
+   `upfileuri` varchar(80) DEFAULT NULL COMMENT '上传文件的URI',
+   
+  `landSite` varchar(10) DEFAULT null COMMENT '宗地位置',
+  `landArea` float(10,3) DEFAULT null COMMENT '宗地位置',
+  `landAmount` float(10,3) DEFAULT null COMMENT '宗地数',
+  `assessUnitPrice` float(10,3) DEFAULT null COMMENT '评估单价',
+  `assessTotalPrice` float(10,3) DEFAULT null COMMENT '评估总价',
+  `clent` varchar(10) DEFAULT null COMMENT '委托方',
+  `clientEmail` varchar(20) DEFAULT null COMMENT '委托方邮箱',
+  `clientPhone` varchar(11) DEFAULT null COMMENT ' 委托方电话',
+  
+  `firstReporter` varchar(20) DEFAULT null COMMENT '第一报告人',
+  `partReporter1` varchar(20) DEFAULT null COMMENT '参与报告人1',
+  `partReporter1RgNum` varchar(20) DEFAULT null COMMENT '参与报告人1注册号',
+  `partReporter2` varchar(20) DEFAULT null COMMENT '参与报告人2',
+  `partReporter2RgNum` varchar(20) DEFAULT null COMMENT '参与报告人2注册号',
+  `serviceSource` varchar(20) DEFAULT null COMMENT '业务来源',
+  
+  `serviceCharge` varchar(20) DEFAULT null COMMENT '业务收费',
+  `checker` varchar(10) DEFAULT null COMMENT '审核员',
+  `assessOrg` varchar(10) DEFAULT null COMMENT '评估机构',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

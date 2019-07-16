@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!-- status log4j2内部日志级别 -->
+<configuration status="WARN">
+	<!-- 全局参数 -->
+	<Properties>
+		<Property name="logPath">logs</Property>
+		<Property name="infoPath">${logPath}/info</Property>
+		<Property name="errorPath">${logPath}/error</Property>
+		<Property name="pattern">%d %p [%class{1}:%L] %m%n</Property>
+	</Properties>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout>
+				<pattern>${pattern}</pattern>
+			</PatternLayout>
+		</Console>
+		<RollingFile name="InfoLog"
+			fileName="${infoPath}/infoLog.log"
+			filePattern="${infoPath}/infoLog-%d{MM-dd-yyyy}-%i.log.gz">
+			<ThresholdFilter level="INFO" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout>
+				<pattern>${pattern}</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20">
+				<Delete basePath="${infoPath}/" maxDepth="1">
+					<IfFileName glob="*infoLog-*.log.gz" />
+					<IfLastModified age="20d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		<RollingFile name="Error"
+			fileName="${errorPath}/errorLog.log"
+			filePattern="${errorPath}/errorLog-%d{MM-dd-yyyy}-%i.log.gz">
+			<ThresholdFilter level="Error" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout>
+				<pattern>${pattern}</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20">
+				<Delete basePath="${errorPath}/" maxDepth="1">
+					<IfFileName glob="*errorLog-*.log.gz" />
+					<IfLastModified age="20d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="org.springframework" level="WARN" />
+		<Logger name="Error" level="ERROR" additivity="true"/>
+		<Logger name="InfoLog" level="info" additivity="true"/>
+		<Root level="info">
+			<AppenderRef ref="console"></AppenderRef>
+			<AppenderRef ref="InfoLog"></AppenderRef>
+		</Root>
+	</Loggers>
+</configuration>

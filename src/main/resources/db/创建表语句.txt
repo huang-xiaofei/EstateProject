@@ -1,0 +1,140 @@
+
+
+-- 报告列表
+CREATE TABLE `report_list` (
+  `id` int(5) NOT NULL AUTO_INCREMENT COMMENT '项目id',
+  `orderNum` varchar(10) DEFAULT NULL COMMENT '序号',
+  `applicationNum` varchar(10) DEFAULT NULL COMMENT '申请编号',
+  `branchOffice` varchar(20) DEFAULT NULL COMMENT '分公司',
+  `assessAim` varchar(10) DEFAULT NULL COMMENT '评估目的',
+  `reportType` varchar(20) DEFAULT NULL COMMENT '报告类型',
+  `applicationDate` date DEFAULT NULL COMMENT '申请时间',
+  `state` varchar(5) DEFAULT NULL COMMENT '审核状态',
+  `checkResult` varchar(10) DEFAULT NULL COMMENT '审核结果',
+  `applicant` varchar(6) DEFAULT NULL COMMENT '申请人',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+
+-- 房地产报告
+CREATE TABLE `real_estate` (
+  `id` int(5) NOT NULL COMMENT '项目id',
+  `projectName` varchar(60) NOT NULL COMMENT '项目名称',
+  `assessReportNum` varchar(40) DEFAULT NULL COMMENT '估计报告编号',
+  `assessStartTime` date DEFAULT NULL COMMENT '估价作业开始时间',
+  `assessEndTime` date DEFAULT NULL COMMENT '估价作业结束时间',
+  `assessObject` varchar(60) DEFAULT NULL COMMENT '估价对象',
+  `valueTime` date DEFAULT NULL COMMENT '价值时点',
+  `assessAim` varchar(10) DEFAULT NULL COMMENT '估价目的',
+  `assessMethod` varchar(10) DEFAULT NULL COMMENT '估价方法',
+  `valueType` varchar(10) DEFAULT NULL COMMENT '价值类型',
+  `buildingArea` float(10,3) DEFAULT NULL COMMENT '建筑面积',
+  `floorArea` float(10,3) DEFAULT NULL COMMENT '占地面积',
+  `assessUnitPrice` float(10,3) DEFAULT NULL COMMENT '评估单价',
+  `assessTotalPrice` float(10,3) DEFAULT NULL COMMENT ' 评估总价',
+  `client` varchar(10) DEFAULT NULL COMMENT '委托方',
+  `firstReporter` varchar(20) DEFAULT NULL COMMENT '第一报告人',
+  `partReporter1` varchar(20) DEFAULT NULL COMMENT '参与报告人1',
+  `partReporter1RgNum` varchar(20) DEFAULT NULL COMMENT '参与报告人1注册号',
+  `partReporter2` varchar(20) DEFAULT NULL COMMENT '参与报告人2',
+  `partReporter2RgNum` varchar(20) DEFAULT NULL COMMENT '参与报告人2注册号',
+  `serviceSource` varchar(20) DEFAULT NULL COMMENT '业务来源',
+  `branchOffice` varchar(10) DEFAULT NULL COMMENT '分公司',
+  `serviceCharge` varchar(20) DEFAULT NULL COMMENT '业务收费',
+  `checker` varchar(10) DEFAULT NULL COMMENT '审核员',
+  `assessOrg` varchar(10) DEFAULT NULL COMMENT '评估机构',
+  `reportType` varchar(10) DEFAULT NULL COMMENT '报告类型',
+  `upFileURI` varchar(80) DEFAULT NULL COMMENT '上传文件的URI',
+  `applicationNum` varchar(50) DEFAULT NULL COMMENT '申请编号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--土地报告
+CREATE TABLE `land_report` (
+  `id` int(5) NOT NULL COMMENT '项目id',
+  `projectName` varchar(100) NOT NULL COMMENT '项目名称',
+  `assessReportNum` varchar(40) DEFAULT NULL COMMENT '估计报告编号',
+  `assessStartTime` date DEFAULT NULL COMMENT '估价作业开始时间',
+  `assessEndTime` date DEFAULT NULL COMMENT '估价作业结束时间',
+  `assessObject` varchar(60) DEFAULT NULL COMMENT '估价对象',
+  `valueTime` date DEFAULT NULL COMMENT '价值时点',
+  `assessAim` varchar(10) DEFAULT NULL COMMENT '估价目的',
+  `assessMethod` varchar(10) DEFAULT NULL COMMENT '估价方法',
+  `reportType` varchar(10) DEFAULT NULL COMMENT '报告类型',
+  `branchOffice` varchar(50) DEFAULT NULL COMMENT '分公司',
+  `upfileuri` varchar(80) DEFAULT NULL COMMENT '上传文件的URI',
+  `landSite` varchar(60) DEFAULT NULL COMMENT '宗地位置',
+  `landArea` float(10,3) DEFAULT NULL COMMENT '宗地位置',
+  `landAmount` float(10,3) DEFAULT NULL COMMENT '宗地数',
+  `assessUnitPrice` float(10,3) DEFAULT NULL COMMENT '评估单价',
+  `assessTotalPrice` float(10,3) DEFAULT NULL COMMENT '评估总价',
+  `client` varchar(10) DEFAULT NULL COMMENT '委托方',
+  `clientEmail` varchar(20) DEFAULT NULL COMMENT '委托方邮箱',
+  `clientPhone` varchar(11) DEFAULT NULL COMMENT ' 委托方电话',
+  `firstReporter` varchar(20) DEFAULT NULL COMMENT '第一报告人',
+  `partReporter1` varchar(20) DEFAULT NULL COMMENT '参与报告人1',
+  `partReporter1RgNum` varchar(20) DEFAULT NULL COMMENT '参与报告人1注册号',
+  `partReporter2` varchar(20) DEFAULT NULL COMMENT '参与报告人2',
+  `partReporter2RgNum` varchar(20) DEFAULT NULL COMMENT '参与报告人2注册号',
+  `serviceSource` varchar(20) DEFAULT NULL COMMENT '业务来源',
+  `serviceCharge` float(10,3) DEFAULT NULL COMMENT '业务收费',
+  `checker` varchar(10) DEFAULT NULL COMMENT '审核员',
+  `assessOrg` varchar(10) DEFAULT NULL COMMENT '评估机构',
+  `applicationNum` varchar(50) DEFAULT NULL COMMENT '申请编号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--评估报告
+CREATE TABLE `assess_report` (
+  `id` int(5) NOT NULL,
+  `applicationNum` varchar(10) DEFAULT NULL COMMENT '申请编号',
+  `serviceSource` varchar(20) DEFAULT NULL COMMENT '业务来源',
+  `checker` varchar(20) DEFAULT NULL COMMENT '审核员',
+  `assessOrg` varchar(50) DEFAULT NULL COMMENT '评估机构',
+  `branchOffice` varchar(50) DEFAULT NULL COMMENT '分公司',
+  `upFileUri` varchar(50) DEFAULT NULL COMMENT '上传文件URI',
+  `reportType` varchar(20) DEFAULT NULL COMMENT '报告类型',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--资产报告
+CREATE TABLE `assets_report` (
+  `id` int(5) NOT NULL COMMENT '项目id',
+  `projectName` varchar(100) NOT NULL COMMENT '项目名称',
+  `assessReportNum` varchar(40) DEFAULT NULL COMMENT '估计报告编号',
+  `assessStartTime` date DEFAULT NULL COMMENT '估价作业开始时间',
+  `assessEndTime` date DEFAULT NULL COMMENT '估价作业结束时间',
+  `assessObject` varchar(60) DEFAULT NULL COMMENT '估价对象',
+  `valueTime` date DEFAULT NULL COMMENT '价值时点',
+  `assessAim` varchar(10) DEFAULT NULL COMMENT '估价目的',
+  `assessMethod` varchar(10) DEFAULT NULL COMMENT '估价方法',
+  `reportType` varchar(10) DEFAULT NULL COMMENT '报告类型',
+  `branchOffice` varchar(10) DEFAULT NULL COMMENT '分公司',
+  `upFileURI` varchar(80) DEFAULT NULL COMMENT '上传文件的URI',
+  `assessedUnitName` varchar(20) DEFAULT NULL COMMENT '被评估单位名称',
+  `isStateAssets` tinyint(1) DEFAULT '0' COMMENT '是否国有资产',
+  `isPrivateAsset` tinyint(1) DEFAULT '0' COMMENT '是否私有资产',
+  `valueType` varchar(10) DEFAULT NULL COMMENT '价值类型',
+  `assessResult` float(10,3) DEFAULT NULL COMMENT '评估结论',
+  `assessDate` date DEFAULT NULL COMMENT '评估基准日',
+  `assetsReportDate` date DEFAULT NULL COMMENT '资产评估报告日',
+  `actualFee` float(10,3) DEFAULT NULL COMMENT '实际收费金额',
+  `assetsFee` float(10,3) DEFAULT NULL COMMENT '总资产账面值',
+  `noAssetsFee` tinyint(1) DEFAULT '0' COMMENT '无总资产账面值',
+  `debtFee` float(10,3) DEFAULT NULL COMMENT '总负债面值',
+  `noDebtFee` tinyint(1) DEFAULT '0' COMMENT '无总负债面值',
+  `netAssets` float(10,3) DEFAULT NULL COMMENT '净资产账面值',
+  `noNetAssets` tinyint(1) DEFAULT '0' COMMENT '无净资产账面值',
+  `applicationNum` varchar(50) DEFAULT NULL COMMENT ' 申请编号',
+  `assessObj` varchar(20) DEFAULT NULL COMMENT '评估对象',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--主键id关系(四种报告主键依赖于report_list主键)
+
+					|--------real_estate(id) 
+					|--------land_report(id)
+report_list(id)-----|				
+					|--------assess_report(id)
+					|--------assets_report(id)	
+

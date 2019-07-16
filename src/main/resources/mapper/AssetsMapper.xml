@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.estate.frontier.mapper.AssetsInterface">
+	<insert id="save"
+		parameterType="com.estate.frontier.model.AssetsInfo">
+		INSERT INTO assets_report
+		(id, projectName,
+		assessReportNum, assessStartTime, assessEndTime,
+		assessObject,
+		valueTime, assessAim, assessMethod, reportType,
+		branchOffice,
+		upFileURI, assessedUnitName, isStateAssets,
+		isPrivateAsset, valueType,
+		assessResult, assessDate, assetsReportDate,
+		actualFee, assetsFee,
+		noAssetsFee, debtFee, noDebtFee, netAssets,
+		noNetAssets,wordUri,pdfUri)
+		VALUES
+		(#{id},#{projectName}, #{assessReportNum},
+		#{assessStartTime},
+		#{assessEndTime},
+		#{assessObject}, #{valueTime},
+		#{assessAim},
+		#{assessMethod}, #{reportType},
+		#{branchOffice},#{upFileURI},#{assessedUnitName},
+		#{isStateAssets},#{isPrivateAsset},
+		#{valueType},
+		#{assessResult},#{assessDate},
+		#{assetsReportDate},#{actualFee},#{assetsFee},
+		#{noAssetsFee},#{debtFee},#{noDebtFee},
+		#{netAssets},#{noNetAssets},
+		#{wordUri},#{pdfUri});
+	</insert>
+	<update id="update"
+		parameterType="com.estate.frontier.model.AssetsInfo">
+		UPDATE
+		assets_report SET
+		projectName=#{projectName},
+		assessReportNum=#{assessReportNum},
+		assessStartTime=#{assessStartTime},assessEndTime=#{assessEndTime},
+		assessObject=#{assessObject}, valueTime=#{valueTime},
+		assessAim=#{assessAim}, assessMethod=#{assessMethod},
+		reportType=#{reportType},branchOffice=#{branchOffice},upFileURI=#{upFileURI},
+		assessedUnitName=#{assessedUnitName},
+		isStateAssets=#{isStateAssets},isPrivateAsset=#{isPrivateAsset},
+		valueType=#{valueType},assessResult=
+		#{assessResult},assessDate=#{assessDate},
+		assetsReportDate=#{assetsReportDate},actualFee=#{actualFee},assetsFee=#{assetsFee},
+		noAssetsFee=#{noAssetsFee},debtFee=#{debtFee},noDebtFee=#{noDebtFee},
+		netAssets=#{netAssets},noNetAssets=#{noNetAssets},wordUri=#{wordUri},pdfUri=#{pdfUri}
+		WHERE
+		id=#{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE from
+		assets_report WHERE id = #{id}
+	</delete>
+	<select id="get" parameterType="int"
+		resultType="com.estate.frontier.model.AssetsInfo">
+		SELECT id, projectName, assessReportNum, assessStartTime,
+		assessEndTime, assessObject, valueTime, assessAim, assessMethod,
+		reportType, branchOffice, upFileURI, assessedUnitName, isStateAssets,
+		isPrivateAsset, valueType, assessResult, assessDate, assetsReportDate,
+		actualFee, assetsFee, noAssetsFee, debtFee, noDebtFee, netAssets,
+		noNetAssets,wordUri,pdfUri
+		FROM assets_report
+		where id=#{id}
+	</select>
+</mapper>

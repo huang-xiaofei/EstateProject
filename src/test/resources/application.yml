@@ -1,0 +1,14 @@
+server:
+    port: 9090
+    context-path: /rpt
+    tomcat.max-threads: 50
+    tomcat.uri-encoding: UTF-8
+spring:
+    datasource:
+        url: jdbc:mysql://47.92.210.161:6033/rpt_approval?useUnicode=true&characterEncoding=UTF-8
+        username: root
+        password: szMtjk_2018
+        driverClassName : com.mysql.jdbc.Driver
+    thymeleaf:      prefix: classpath:/file/
+mybatis:  mapper-locations: classpath:mapper/*.xml
+  configuration:    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

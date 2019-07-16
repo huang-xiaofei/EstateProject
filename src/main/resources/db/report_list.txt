@@ -1,0 +1,13 @@
+CREATE TABLE estate.report(
+	id INT(5) NOT NULL AUTO_INCREMENT ,
+	orderNum VARCHAR(10) COMMENT '序号',
+	applicationNum VARCHAR(10) COMMENT '申请编号',
+	branchOffice VARCHAR(20) COMMENT '分公司',
+	assessAim VARCHAR(10) COMMENT '评估目的',
+	reportType VARCHAR(10) COMMENT '报告类型',
+	applicationDate date COMMENT '申请时间',
+	state VARCHAR(5) COMMENT '审核状态',
+	checkResult VARCHAR(10) COMMENT '审核结果',
+	applicant VARCHAR(6) COMMENT '申请人',
+	PRIMARY key(id)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET='utf8';

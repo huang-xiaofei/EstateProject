@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.estate.frontier.mapper.RealEstateInterface">
+	<insert id="saveRealEstate"
+		parameterType="com.estate.frontier.model.RealEstateInfo">
+		INSERT INTO
+		estate.real_estate
+		(projectName,
+		assessReportnum, assessStartTime,
+		assessEndTime, assessObject,
+		valueTime, assessAim, assessMethod,
+		valueType, buildingArea, floorArea,
+		assessUnitPrice, assessTotalPrice,
+		client, firstReporter,
+		partReporter1, partReporter1RgNum,
+		partReporter2, partReporter2RgNum,
+		serviceSource, branchOffice,
+		serviceCharge, checker, assessOrg,
+		reportType)
+		VALUES(#{projectName}, #{assessReportNum},
+		#{assessStartTime},
+		#{assessEndTime}, #{assessObject}, #{valueTime},
+		#{assessAim}, #{assessMethod},
+		#{valueType}, #{buildingArea},
+		#{floorArea}, #{assessUnitPrice},
+		#{assessTotalPrice}, #{client},
+		#{firstReporter}, #{partReporter1},
+		#{partReporter1RgNum},
+		#{partReporter2},
+		#{partReporter2RgNum},#{serviceSource},#{branchOffice},
+		#{serviceCharge}, #{checker},#{assessOrg}, #{reportType});
+	</insert>
+	<update id="updateRealEstate"
+		parameterType="com.estate.frontier.model.RealEstateInfo">
+		UPDATE
+		estate.real_estate SET
+		projectName=#{projectName}, assessReportNum=#{assessReportNum},
+		assessStartTime=#{assessStartTime},assessEndTime=#{assessEndTime},
+		assessObject=#{assessObject}, valueTime=#{valueTime},
+		assessAim=#{assessAim}, assessMethod=#{assessMethod},
+		valueType=#{valueType}, buildingArea=#{buildingArea},
+		floorArea=#{floorArea}, assessUnitPrice=#{assessUnitPrice},
+		assessTotalPrice=#{assessTotalPrice}, client=#{client},
+		firstReporter=#{firstReporter}, partReporter1=#{partReporter1},
+		partReporter1RgNum=#{partReporter1RgNum},partReporter2=#{partReporter2},
+		partReporter2RgNum=#{partReporter2RgNum},serviceSource=#{serviceSource},
+		branchOffice=#{branchOffice},serviceCharge=#{serviceCharge},
+		checker= #{checker},assessOrg=#{assessOrg},
+		reportType=#{reportType}
+		WHERE id=#{id}
+	</update>
+	<delete id="deleteRealEstate" parameterType="int">
+		DELETE from estate.real_estate WHERE id = #{id}
+	</delete>
+	<select id="getRealEstate" parameterType="int"
+		resultType="com.estate.frontier.model.RealEstateInfo">
+		select id,projectName,
+			assessReportNum, assessStartTime,
+			assessEndTime, assessObject,
+			valueTime, assessAim, assessMethod,
+			valueType, buildingArea, floorArea,
+			assessUnitPrice, assessTotalPrice,
+			client, firstReporter,
+			partReporter1, partReporter1RgNum,
+			partReporter2, partReporter2RgNum,
+			serviceSource, branchOffice,
+			serviceCharge, checker, assessOrg,
+			reportType from estate.real_estate
+		where id=#{id}
+	</select>
+</mapper>
