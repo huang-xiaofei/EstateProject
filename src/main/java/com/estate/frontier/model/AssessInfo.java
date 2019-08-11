@@ -14,7 +14,7 @@ import com.estate.frontier.model.base.BaseEstate;
 public class AssessInfo extends BaseEstate {
 
 	private String serviceSource;// 业务来源
-	private String checker;// 审核员
+	//private String checker;// 审核员
 	private String assessOrg;// 评估机构
 
 	public String getServiceSource() {
@@ -25,13 +25,6 @@ public class AssessInfo extends BaseEstate {
 		this.serviceSource = serviceSource;
 	}
 
-	public String getChecker() {
-		return checker;
-	}
-
-	public void setChecker(String checker) {
-		this.checker = checker;
-	}
 
 	public String getAssessOrg() {
 		return assessOrg;

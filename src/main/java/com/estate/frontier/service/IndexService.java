@@ -3,8 +3,10 @@
  */
 package com.estate.frontier.service;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSON;
 import com.estate.frontier.mapper.AssessInterface;
 import com.estate.frontier.mapper.AssetsInterface;
 import com.estate.frontier.mapper.LandInterface;
@@ -87,22 +90,39 @@ public class IndexService {
 	 * @date 2019年6月25日 上午9:15:45
 	 */
 	@Transactional
-	public ResultModel saveEstateData(BaseEstate base, MultipartFile file) {
+	public ResultModel saveEstateData(BaseEstate base, List<MultipartFile> files) {
 		try {
 			ReportInfo reportInfo = getReportInfo(base);
 			reportInterFace.save(reportInfo);// 保存到report_list表
 
 			int id = reportInfo.getId();
-			FileResult result = FileUtil.upLoad(file, id);// 上传文件
+			base.setId(id);
+			List<FileResult> result = FileUtil.upLoad(files, base);// 上传文件
 
 			base.setId(id);
-			if (null != result) {
-				base.setWordUri(result.getWordPath());
-				base.setPdfUri(result.getPdfPath());
+			for (FileResult fileResult : result) {
+				if (FileUtil.isZip(fileResult.getRealPath())) {
+					base.setUpFileURI(fileResult.getWordPath());
+				} else {
+					base.setWordUri(fileResult.getWordPath());
+					base.setPdfUri(fileResult.getPdfPath());
+				}
 			}
 
 			getReportDao(base.getReportType()).save(base);// 保存报告明细
-			return ResultFactory.newResultModel(EnumField.sucess, result.getRealPath());
+			return ResultFactory.newResultModel(EnumField.sucess, result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return ResultFactory.newResultModel(EnumField.fail, null);
+		}
+	}
+
+	@Transactional
+	public ResultModel transferTo(String transferTo, int id) {
+		try {
+			reportInterFace.updateTransfer(transferTo, id);
+			return ResultFactory.newResultModel(EnumField.sucess, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -117,19 +137,32 @@ public class IndexService {
 	 * @author lenovo
 	 * @date 2019年6月25日 上午9:16:37
 	 */
+	@Transactional
 	public ResultModel updateEstateData(BaseEstate base, MultipartFile file) {
 		try {
 			ReportInfo reportInfo = getReportInfo(base);
 			reportInterFace.update(reportInfo);// 更新report_list表
 
-			FileResult result = FileUtil.upLoad(file, base.getId());// 上传文件
+			FileResult result = FileUtil.upLoad(file, base);// 上传文件
 			if (null != result) {
 				base.setWordUri(result.getWordPath());
 				base.setPdfUri(result.getPdfPath());
 			}
 
 			getReportDao(base.getReportType()).update(base);// 保存报告明细
-			return ResultFactory.newResultModel(EnumField.sucess, result.getRealPath());
+			return ResultFactory.newResultModel(EnumField.sucess, base.getPdfUri());
+		} catch (Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return ResultFactory.newResultModel(EnumField.fail, null);
+		}
+	}
+
+	@Transactional
+	public ResultModel updateZipUri(Map<String, String> params) {
+		try {
+			getReportDao(params.get("reportType")).updateUri(params);// 保存报告明细
+			return ResultFactory.newResultModel(EnumField.sucess, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -185,6 +218,27 @@ public class IndexService {
 	}
 
 	/**
+	 * 根据多个state查找列表
+	 * 
+	 * @param states
+	 * @return
+	 * @author lenovo
+	 * @date 2019年7月26日 下午9:00:10
+	 */
+	public ResultModel getReportsByStates(List<String> states) {
+		if (null == states || states.isEmpty()) {
+			return ResultFactory.newResultModel(EnumField.nullObject, null);
+		}
+		try {
+			List<ReportInfo> lists = reportInterFace.selectReportByStates(states);
+			return ResultFactory.newResultModel(EnumField.sucess, lists);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultFactory.newResultModel(EnumField.fail, null);
+		}
+	}
+
+	/**
 	 * 
 	 * @param base
 	 * @return
@@ -193,16 +247,18 @@ public class IndexService {
 	 */
 	private ReportInfo getReportInfo(BaseEstate base) {
 		ReportInfo reportInfo = new ReportInfo();
-		reportInfo.setApplicant("王麻子");
-		reportInfo.setApplicationDate(new Date());
-		reportInfo.setApplicationNum(base.getApplicationNum());
+		reportInfo.setApplicant(base.getApplicant());// 申请人
+		reportInfo.setApplicationDate(new Timestamp(System.currentTimeMillis()));// 申请日期
+		reportInfo.setApplicationNum(base.getAssessReportNum());// 申请编号
 		reportInfo.setId(base.getId());
-		reportInfo.setAssessAim(base.getAssessAim());
-		reportInfo.setBranchOffice(base.getBranchOffice());
-		reportInfo.setCheckResult("未通过");
+		reportInfo.setAssessAim(base.getAssessAim());// 估价目的
+		reportInfo.setBranchOffice(base.getBranchOffice());// 分公司
+		reportInfo.setCheckResult(base.getCheckResult());// 审核结果
 		reportInfo.setReportType(base.getReportType());
-		reportInfo.setOrderNum("003");
-		reportInfo.setState("未审核");
+		reportInfo.setOrderNum(base.getOrderNum());// 序号
+		reportInfo.setState(base.getState() == null ? "0" : base.getState());// 审核状态
+		reportInfo.setLogin(base.getLogin());// 登录用户
+		reportInfo.setChecker(base.getChecker());// 申请人
 		return reportInfo;
 	}
 
@@ -210,17 +266,49 @@ public class IndexService {
 		return reportInterFace.getAllReports();
 	}
 
-	/**
-	 * 
-	 * @param branchOffice
-	 * @param state
-	 * @return
-	 * @author lenovo
-	 * @date 2019年6月25日 上午9:17:13
-	 */
-	public ResultModel getReportsDatas(String branchOffice, String state) {
+//	/**
+//	 * 
+//	 * @param branchOffice
+//	 * @param state
+//	 * @return
+//	 * @author lenovo
+//	 * @date 2019年6月25日 上午9:17:13
+//	 */
+//	public ResultModel getReportsDatas(String branchOffice, String state) {
+//		try {
+//			List<ReportInfo> lists = reportInterFace.getReportsByCondition(branchOffice, state);
+//			return ResultFactory.newResultModel(EnumField.sucess, lists);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return ResultFactory.newResultModel(EnumField.fail, null);
+//		}
+//	}
+
+	public ResultModel getReportsByConditions(Map<String, Object> params) {
 		try {
-			List<ReportInfo> lists = reportInterFace.getReportsByCondition(branchOffice, state);
+			if (null == params || params.isEmpty()) {
+				params = new HashMap<String, Object>();
+			}
+			List<ReportInfo> lists = reportInterFace.getReportsByConditions(params);
+			return ResultFactory.newResultModel(EnumField.sucess, lists);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultFactory.newResultModel(EnumField.fail, null);
+		}
+	}
+
+	@Transactional
+	public ResultModel updateRemarkOrStampState(Map<String, Object> params) {
+		int num = reportInterFace.updateRemarkOrStampState(params);
+		return ResultFactory.newResultModel(EnumField.sucess, num);
+	}
+
+	public ResultModel getCheckReportsByConditions(Map<String, Object> params) {
+		try {
+			if (null == params || params.isEmpty()) {
+				params = new HashMap<String, Object>();
+			}
+			List<ReportInfo> lists = reportInterFace.getCheckReportsByConditions(params);
 			return ResultFactory.newResultModel(EnumField.sucess, lists);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -230,11 +318,13 @@ public class IndexService {
 
 	@Async("asyncPoolTaskExecutor")
 	public void word2Pdf(Object obj) {
-		log.warn("word2Pdf线程名:{},obj={}", Thread.currentThread().getName(), obj);
-		if (null == obj || obj.toString().isEmpty()) {
+		log.warn("word2Pdf线程名:{},obj={}", Thread.currentThread().getName(), JSON.toJSONString(obj));
+		if (null == obj || obj.toString().isEmpty() || !(obj instanceof FileResult)) {
 			return;
 		}
+		FileResult result = (FileResult) obj;
+
 		// Word2PdfUtil.doc2pdf(obj.toString());
-		log.warn("word2Pdf转换结果:{}", Word2PdfUtil.doc2pdf(obj.toString()));
+		log.warn("word2Pdf转换结果:{}", Word2PdfUtil.doc2pdf(result));
 	}
 }

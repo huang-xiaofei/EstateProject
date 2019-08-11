@@ -49,8 +49,18 @@
 		partReporter1RgNum=#{partReporter1RgNum},partReporter2=#{partReporter2},
 		partReporter2RgNum=#{partReporter2RgNum},serviceSource=#{serviceSource},
 		branchOffice=#{branchOffice},serviceCharge=#{serviceCharge},
-		checker= #{checker},assessOrg=#{assessOrg},
-		reportType=#{reportType},wordUri=#{wordUri},pdfUri=#{pdfUri}, firstReporterRgNum=#{firstReporterRgNum}
+		assessOrg=#{assessOrg},
+		reportType=#{reportType}, firstReporterRgNum=#{firstReporterRgNum},
+		<if test="wordUri !=null and wordUri !=''">
+			 wordUri=#{wordUri},
+		</if>
+		<if test="pdfUri !=null and pdfUri !=''">
+			 pdfUri=#{pdfUri},
+		</if>
+		<if test="checker !=null and checker !=''">
+			checker=#{checker},
+		</if>
+		id=#{id}
 		WHERE id=#{id}
 	</update>
 	<delete id="delete" parameterType="int">
@@ -72,4 +82,11 @@
 			reportType ,wordUri,pdfUri,firstReporterRgNum from real_estate
 		where id=#{id}
 	</select>
+	<update id="updateUri">
+		UPDATE
+		real_estate SET
+		upFileURI =#{params.zipUri}
+		WHERE
+		id=#{params.id}
+	</update>
 </mapper>

@@ -3,6 +3,8 @@
  */
 package com.estate.frontier.model.factory;
 
+import java.util.List;
+
 import com.estate.frontier.model.constant.EnumField;
 
 /**
@@ -12,6 +14,10 @@ import com.estate.frontier.model.constant.EnumField;
 public class ResultFactory {
 
 	public static ResultModel newResultModel(EnumField e, Object data) {
+		if(data instanceof List) {
+			List<?> list =(List<?>) data;
+			return new ResultModel(e.getKey(), e.getValue(), data,list.size());
+		}
 		return new ResultModel(e.getKey(), e.getValue(), data);
 	}
 }

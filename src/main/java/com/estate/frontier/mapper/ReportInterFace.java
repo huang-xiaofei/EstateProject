@@ -4,6 +4,7 @@
 package com.estate.frontier.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -28,7 +29,15 @@ public interface ReportInterFace {
 
 	public List<ReportInfo> getAllReports();
 
-	public List<ReportInfo> getReportsByCondition(@Param("branchOffice") String branchOffice,
-			@Param("state") String state);
-
+	public List<ReportInfo> getCheckReportsByConditions(@Param("params") Map<String, Object> params);
+	
+	public List<ReportInfo> getReportsByConditions(@Param("params") Map<String, Object> params);
+	//根据多个状态查询列表
+	public List<ReportInfo> selectReportByStates(List<String> states);
+	
+	public int updateTransfer(@Param("transferTo") String transferTo, @Param("id") int id);
+	//更新盖章状态
+	//public int updateStampState(@Param("stampState") String stampState, @Param("id") String id);
+	//更新备注
+	public int updateRemarkOrStampState(@Param("params") Map<String, Object> params);
 }

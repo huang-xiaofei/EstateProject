@@ -7,7 +7,7 @@
 		parameterType="com.estate.frontier.model.AssetsInfo">
 		INSERT INTO assets_report
 		(id, projectName,
-		assessReportNum, assessStartTime, assessEndTime,
+		assessReportNum,
 		assessObject,
 		valueTime, assessAim, assessMethod, reportType,
 		branchOffice,
@@ -16,14 +16,14 @@
 		assessResult, assessDate, assetsReportDate,
 		actualFee, assetsFee,
 		noAssetsFee, debtFee, noDebtFee, netAssets,
-		noNetAssets,wordUri,pdfUri)
+		noNetAssets,wordUri,pdfUri,checker,assessObj,client)
 		VALUES
-		(#{id},#{projectName}, #{assessReportNum},
-		#{assessStartTime},
-		#{assessEndTime},
+		(#{id},#{projectName},
+		#{assessReportNum},
 		#{assessObject}, #{valueTime},
 		#{assessAim},
-		#{assessMethod}, #{reportType},
+		#{assessMethod},
+		#{reportType},
 		#{branchOffice},#{upFileURI},#{assessedUnitName},
 		#{isStateAssets},#{isPrivateAsset},
 		#{valueType},
@@ -31,41 +31,68 @@
 		#{assetsReportDate},#{actualFee},#{assetsFee},
 		#{noAssetsFee},#{debtFee},#{noDebtFee},
 		#{netAssets},#{noNetAssets},
-		#{wordUri},#{pdfUri});
+		#{wordUri},#{pdfUri},#{checker},#{assessObj},#{client});
 	</insert>
 	<update id="update"
 		parameterType="com.estate.frontier.model.AssetsInfo">
 		UPDATE
 		assets_report SET
-		projectName=#{projectName},
-		assessReportNum=#{assessReportNum},
-		assessStartTime=#{assessStartTime},assessEndTime=#{assessEndTime},
-		assessObject=#{assessObject}, valueTime=#{valueTime},
+		<if test="projectName !=null and projectName !=''">
+			projectName=#{projectName},
+		</if>
+		<if test="assessReportNum !=null and assessReportNum !=''">
+			assessReportNum=#{assessReportNum},
+		</if>
+		<if test="assessObject !=null and assessObject !=''">
+			assessObject=#{assessObject},
+		</if>
+		<if test="assessObj !=null and assessObj !=''">
+			assessObj=#{assessObj},
+		</if>
+		valueTime=#{valueTime},
 		assessAim=#{assessAim}, assessMethod=#{assessMethod},
 		reportType=#{reportType},branchOffice=#{branchOffice},upFileURI=#{upFileURI},
 		assessedUnitName=#{assessedUnitName},
 		isStateAssets=#{isStateAssets},isPrivateAsset=#{isPrivateAsset},
 		valueType=#{valueType},assessResult=
 		#{assessResult},assessDate=#{assessDate},
-		assetsReportDate=#{assetsReportDate},actualFee=#{actualFee},assetsFee=#{assetsFee},
+		assetsReportDate=#{assetsReportDate},
+		actualFee=#{actualFee},assetsFee=#{assetsFee},
 		noAssetsFee=#{noAssetsFee},debtFee=#{debtFee},noDebtFee=#{noDebtFee},
-		netAssets=#{netAssets},noNetAssets=#{noNetAssets},wordUri=#{wordUri},pdfUri=#{pdfUri}
+		netAssets=#{netAssets},noNetAssets=#{noNetAssets},client=#{client},
+		<if test="wordUri !=null and wordUri !=''">
+			 wordUri=#{wordUri},
+		</if>
+		<if test="pdfUri !=null and pdfUri !=''">
+			 pdfUri=#{pdfUri},
+		</if>
+		<if test="checker !=null and checker !=''">
+			checker=#{checker},
+		</if>
+		id=#{id}
 		WHERE
 		id=#{id}
 	</update>
 	<delete id="delete" parameterType="int">
 		DELETE from
-		assets_report WHERE id = #{id}
+		assets_report WHERE
+		id = #{id}
 	</delete>
 	<select id="get" parameterType="int"
 		resultType="com.estate.frontier.model.AssetsInfo">
-		SELECT id, projectName, assessReportNum, assessStartTime,
-		assessEndTime, assessObject, valueTime, assessAim, assessMethod,
+		SELECT id, projectName, assessReportNum,assessObject, valueTime, assessAim, assessMethod,
 		reportType, branchOffice, upFileURI, assessedUnitName, isStateAssets,
 		isPrivateAsset, valueType, assessResult, assessDate, assetsReportDate,
 		actualFee, assetsFee, noAssetsFee, debtFee, noDebtFee, netAssets,
-		noNetAssets,wordUri,pdfUri
+		noNetAssets,wordUri,pdfUri,checker,client,assessObj
 		FROM assets_report
 		where id=#{id}
 	</select>
+	<update id="updateUri">
+		UPDATE
+		assets_report SET
+		upFileURI =#{params.zipUri}
+		WHERE
+		id=#{params.id}
+	</update>
 </mapper>

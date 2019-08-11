@@ -10,6 +10,16 @@ spring:
         password: szMtjk_2018
         driverClassName : com.mysql.jdbc.Driver
     thymeleaf:      prefix: classpath:/file/
+    http:
+      encoding:
+        charset: UTF-8
+        enabled: true
+        force: true
+      multipart:
+       enabled: true
+       max-file-size: 20MB
+       max-request-size: 20MB   
 mybatis:  mapper-locations: classpath:mapper/*.xml
   configuration:    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    call-setters-on-nulls: true
 logging:  config: classpath:log4j2-spring.xml

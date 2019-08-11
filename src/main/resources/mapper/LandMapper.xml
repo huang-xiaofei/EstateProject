@@ -17,7 +17,8 @@
 		firstReporter,
 		partReporter1, partReporter1RgNum, partReporter2,
 		partReporter2RgNum,
-		serviceSource, serviceCharge, checker, assessOrg,wordUri,pdfUri,firstReporterRgNum)
+		serviceSource, serviceCharge, checker, assessOrg,wordUri,
+		pdfUri,firstReporterRgNum,clientAddr,quarter,pl)
 		VALUES(#{id},
 		#{projectName}, #{assessReportNum},
 		#{assessStartTime},
@@ -35,7 +36,8 @@
 		#{partReporter2},
 		#{partReporter2RgNum},#{serviceSource},
 		#{serviceCharge}, #{checker},#{assessOrg}
-		, #{wordUri},#{pdfUri},#{firstReporterRgNum});
+		, #{wordUri},#{pdfUri},#{firstReporterRgNum}
+		, #{clientAddr},#{quarter},#{pl});
 	</insert>
 	<update id="update"
 		parameterType="com.estate.frontier.model.LandInfo">
@@ -57,7 +59,18 @@
 		partReporter1RgNum=#{partReporter1RgNum},partReporter2=#{partReporter2},
 		partReporter2RgNum=#{partReporter2RgNum},serviceSource=#{serviceSource},
 		serviceCharge=#{serviceCharge},
-		checker=#{checker},assessOrg=#{assessOrg},wordUri=#{wordUri},pdfUri=#{pdfUri},firstReporterRgNum=#{firstReporterRgNum}
+		assessOrg=#{assessOrg},firstReporterRgNum=#{firstReporterRgNum},
+		clientAddr=#{clientAddr},quarter=#{quarter},pl=#{pl},
+		<if test="wordUri !=null and wordUri !=''">
+			 wordUri=#{wordUri},
+		</if>
+		<if test="pdfUri !=null and pdfUri !=''">
+			 pdfUri=#{pdfUri},
+		</if>
+		<if test="checker !=null and checker !=''">
+			checker=#{checker},
+		</if>
+		id=#{id}
 		WHERE
 		id=#{id}
 	</update>
@@ -72,8 +85,17 @@
 		reportType, branchOffice, upfileuri, landSite, landArea, landAmount,
 		assessUnitPrice, assessTotalPrice, client, clientEmail, clientPhone,
 		firstReporter, partReporter1, partReporter1RgNum, partReporter2,
-		partReporter2RgNum, serviceSource, serviceCharge, checker, assessOrg,wordUri,pdfUri,firstReporterRgNum
+		partReporter2RgNum, serviceSource, serviceCharge, checker,
+		assessOrg,wordUri,pdfUri,firstReporterRgNum,
+		clientAddr,quarter,pl
 		FROM land_report
 		where id=#{id}
 	</select>
+	<update id="updateUri">
+		UPDATE
+		land_report SET
+		upFileURI =#{params.zipUri}
+		WHERE
+		id=#{params.id}
+	</update>
 </mapper>

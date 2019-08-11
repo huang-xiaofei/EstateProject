@@ -5,6 +5,7 @@ package com.estate.frontier.model;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.estate.frontier.model.base.BaseEstate;
 
 /**
@@ -20,7 +21,9 @@ public class AssetsInfo extends BaseEstate {
 	private boolean isPrivateAsset;// 是否私有资产
 	private String valueType;// 价值类型
 	private double assessResult;// 评估结论
+	@JSONField(format = "yyyy-MM-dd")
 	private Date assessDate;// 评估基准日
+	@JSONField(format = "yyyy-MM-dd")
 	private Date assetsReportDate;// 资产评估报告日
 	private double actualFee;// 实际收费金额
 	private double assetsFee;// 总资产账面值
@@ -31,6 +34,7 @@ public class AssetsInfo extends BaseEstate {
 	private boolean noNetAssets;// 无净资产账面值ֵ
 	private String assessObj;// 评估对象
 
+	private String client;//委托方
 	public String getAssessObj() {
 		return assessObj;
 	}
@@ -149,6 +153,14 @@ public class AssetsInfo extends BaseEstate {
 
 	public void setNoNetAssets(boolean noNetAssets) {
 		this.noNetAssets = noNetAssets;
+	}
+
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
 	}
 
 }

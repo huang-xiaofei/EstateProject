@@ -3,7 +3,7 @@
  */
 package com.estate.frontier.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -22,11 +22,18 @@ public class ReportInfo {
 	private String assessAim;// 评估目的
 	private String reportType;// 报告类型
 	private String applicant;// 申请人
-	@JSONField(format = "yyyy-MM-dd")
-	private Date applicationDate;// 申请时间
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+	private Timestamp applicationDate;// 申请时间
 	private String state;// 状态
 	private String checkResult;// 审核结果
 
+	private String login;//登录的用户民
+	private String transferTo;//转让给的用户名
+	private String checker;// 审核员
+	
+	
+	private String stampState;//盖章状态
+	private String remark;// 备注
 	public int getId() {
 		return id;
 	}
@@ -83,11 +90,11 @@ public class ReportInfo {
 		this.applicant = applicant;
 	}
 
-	public Date getApplicationDate() {
+	public Timestamp getApplicationDate() {
 		return applicationDate;
 	}
 
-	public void setApplicationDate(Date applicationDate) {
+	public void setApplicationDate(Timestamp applicationDate) {
 		this.applicationDate = applicationDate;
 	}
 
@@ -105,6 +112,46 @@ public class ReportInfo {
 
 	public void setCheckResult(String checkResult) {
 		this.checkResult = checkResult;
+	}
+
+	public String getTransferTo() {
+		return transferTo;
+	}
+
+	public void setTransferTo(String transferTo) {
+		this.transferTo = transferTo;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getChecker() {
+		return checker;
+	}
+
+	public void setChecker(String checker) {
+		this.checker = checker;
+	}
+
+	public String getStampState() {
+		return stampState;
+	}
+
+	public void setStampState(String stampState) {
+		this.stampState = stampState;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }

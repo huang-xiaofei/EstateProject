@@ -15,9 +15,17 @@ public class ResultModel {
 	private String code;
 	private String state;
 	private Object data;
-
+	private Integer count;
 	public ResultModel() {
 
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 	/**
@@ -30,6 +38,13 @@ public class ResultModel {
 		this.code = code;
 		this.state = state;
 		this.data = data;
+	}
+	public ResultModel(String code, String state, Object data,int count) {
+		super();
+		this.code = code;
+		this.state = state;
+		this.data = data;
+		this.count=count;
 	}
 
 	public String getCode() {

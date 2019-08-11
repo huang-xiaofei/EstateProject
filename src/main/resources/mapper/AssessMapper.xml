@@ -5,9 +5,11 @@
 <mapper namespace="com.estate.frontier.mapper.AssessInterface">
 	<insert id="save"
 		parameterType="com.estate.frontier.model.AssessInfo">
-		insert into  assess_report
-		(id,applicationNum, serviceSource, checker, assessOrg,
-		branchOffice, upFileURI,reportType,wordUri,pdfUri)
+		insert into assess_report
+		(id,applicationNum,
+		serviceSource, checker, assessOrg,
+		branchOffice,
+		upFileURI,reportType,wordUri,pdfUri)
 		VALUES
 		(#{id},#{applicationNum},#{serviceSource},
 		#{checker},
@@ -21,20 +23,40 @@
 		assess_report SET
 		applicationNum=#{applicationNum},
 		serviceSource=#{serviceSource},
-		checker=#{checker},assessOrg=#{assessOrg},
-		branchOffice=#{branchOffice}, upFileUri=#{upFileURI},wordUri=#{wordUri},pdfUri=#{pdfUri}
+		assessOrg=#{assessOrg},
+		branchOffice=#{branchOffice},
+		upFileUri=#{upFileURI},
+		<if test="wordUri !=null and wordUri !=''">
+			 wordUri=#{wordUri},
+		</if>
+		<if test="pdfUri !=null and pdfUri !=''">
+			 pdfUri=#{pdfUri},
+		</if>
+		<if test="checker !=null and checker !=''">
+			checker=#{checker},
+		</if>
+		id=#{id}
 		WHERE
 		id=#{id}
 	</update>
 	<delete id="delete" parameterType="int">
 		DELETE from
-		assess_report WHERE id = #{id}
+		assess_report WHERE
+		id = #{id}
 	</delete>
 	<select id="get" parameterType="int"
 		resultType="com.estate.frontier.model.AssessInfo">
 		SELECT id, applicationNum, serviceSource, checker,
 		assessOrg, branchOffice, upFileUri,wordUri,pdfUri,reportType
-		FROM assess_report
+		FROM
+		assess_report
 		where id=#{id}
 	</select>
+	<update id="updateUri">
+		UPDATE
+		assess_report SET
+		upFileURI =#{params.zipUri}
+		WHERE
+		id=#{params.id}
+	</update>
 </mapper>

@@ -42,7 +42,7 @@ public class TestAssets {
 		assetsInfo.setAssessEndTime(new Date());
 		assetsInfo.setValueTime(new Date());
 		assetsInfo.setAssessObject("房地产一期评估");
-		assetsInfo.setAssessAim("出让");
+		//assetsInfo.setAssessAim("出让");
 		assetsInfo.setAssessMethod("1-比较法");
 		assetsInfo.setAssessedUnitName("天征XXX估第00000013");
 		assetsInfo.setIsStateAssets(true);
@@ -71,7 +71,7 @@ public class TestAssets {
 		assetsInfo.setAssessEndTime(new Date());
 		assetsInfo.setValueTime(new Date());
 		assetsInfo.setAssessObject("房地产一期评估");
-		assetsInfo.setAssessAim("出让");
+		//assetsInfo.setAssessAim("出让");
 		assetsInfo.setAssessMethod("1-排除法");
 		assetsInfo.setAssessedUnitName("天征XXX估第00000013");
 		assetsInfo.setIsStateAssets(true);

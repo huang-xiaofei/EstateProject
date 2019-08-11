@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.estate.frontier.model.base.BaseEstate;
 import com.estate.frontier.model.constant.EnumField;
 import com.estate.frontier.model.constant.NormalConstant;
@@ -34,6 +39,7 @@ import com.estate.frontier.model.factory.ResultFactory;
 import com.estate.frontier.model.factory.ResultModel;
 import com.estate.frontier.service.IndexService;
 import com.estate.frontier.util.FileUtil;
+import com.estate.frontier.util.FileUtil.FileResult;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -53,58 +59,57 @@ public class IndexController {
 	@Autowired
 	private IndexService indexService;
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/saveRptOrFile", method = RequestMethod.POST)
 	@ApiOperation(value = "上传文件和保存报告信息", notes = "先保存报告信息，在上传文件")
 	@ResponseBody
 	public String saveRptOrFile(HttpServletRequest request) {
-		MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");
+		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
+		if (null == files || files.isEmpty()) {
+			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.fail, "无文件！"));
+		}
+		if (files.size() > 2) {
+			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.fail, "文件数超过两个！"));
+		}
+		for (MultipartFile multipartFile : files) {
+			log.info("saveRptOrFile->收到file:{}", multipartFile.getOriginalFilename());
+		}
+		// MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");
 		String json = request.getParameter("data");
-		log.info("saveRptOrFile->收到file:{},收到json:{}" + file.getOriginalFilename(), json);
+		log.info("saveRptOrFile->收到json:{}", json);
+
 		BaseEstate base = getBaseEstate(json);
 		if (null == base) {
 			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.nullObject, null));
 		}
-		ResultModel result = indexService.saveEstateData(base, file);
-		indexService.word2Pdf(result.getData());
+		ResultModel result = indexService.saveEstateData(base, files);
+		log.info("files:"+JSON.toJSONString(result));
+		wordToPdf((List<FileResult>) result.getData());
 		System.out.println("------------------------------------------------");
 		return JSON.toJSONString(result);
 	}
 
-//	@RequestMapping(value = "/test", method = RequestMethod.POST)
-//	@ApiOperation(value = "上传文件和保存报告信息", notes = "先保存报告信息，在上传文件")
-//	@ResponseBody
-//	public String Test(@RequestBody MultipartFile file, @RequestParam String json) {
-//		log.info("saveRptOrFile->收到file:{},收到json:{}" + file.getOriginalFilename(), json);
-//		BaseEstate base = getBaseEstate(json);
-//		if (null == base) {
-//			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.nullObject, null));
-//		}
-//		ResultModel result = indexService.saveEstateData(base, file);
-//		indexService.word2Pdf(result.getData());
-//		System.out.println("------------------------------------------------");
-//		return JSON.toJSONString(result);
-//	}
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	@ApiOperation(value = "上传文件和保存报告信息", notes = "先保存报告信息，在上传文件")
+	@ResponseBody
+	public String Test(@RequestBody MultipartFile file, @RequestParam String json) {
+		// log.info("saveRptOrFile->收到file:{},收到json:{}" + file.getOriginalFilename(),
+		// json);
+		BaseEstate base = getBaseEstate(json);
+		if (null == base) {
+			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.nullObject, null));
+		}
+		ResultModel result = indexService.saveEstateData(base, Arrays.asList(file));
+		wordToPdf((List<FileResult>) result.getData());
+		System.out.println("------------------------------------------------");
+		return JSON.toJSONString(result);
+	}
 
-//	@RequestMapping(value = "/testUpdate", method = RequestMethod.POST)
-//	@ApiOperation(value = "更新报告和文件信息", notes = "先更新报告信息，在上传文件")
-//	@ResponseBody
-//	public String testUpdate(@RequestBody(required = false) MultipartFile file,
-//			@RequestParam(required = false) String json) {
-//		log.info("updateRptOrFile->收到id:{},json:{}", json);
-//		BaseEstate base = getBaseEstate(json);
-//		if (null == base) {
-//			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.nullObject, null));
-//		}
-//		ResultModel result = indexService.updateEstateData(base, file);
-//
-//		indexService.word2Pdf(result.getData());// 异步执行word转为pdf
-//		System.out.println("------------------------------------------------");
-//		return JSON.toJSONString(result);
-//	}
-
-	@RequestMapping(value = "/updateRptOrFile", method = RequestMethod.POST)
+	//@RequestMapping(value = "/updateRptOrFile", method = RequestMethod.POST)
 	@ApiOperation(value = "更新报告和文件信息", notes = "先更新报告信息，在上传文件")
 	@ResponseBody
+	@Deprecated
 	public String updateRptOrFile(HttpServletRequest request) {
 		MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");
 		String json = request.getParameter("data");
@@ -120,27 +125,13 @@ public class IndexController {
 		return JSON.toJSONString(result);
 	}
 
-//	@RequestMapping(value = "/updateRpt", method = RequestMethod.POST)
-//	@ApiOperation(value = "更新报告信息", notes = "只更新报告信息")
-//	@ResponseBody
-//	public String updateRpt(@RequestBody String json) {
-//		System.out.println(json);
-//		BaseEstate base = getBaseEstate(json);
-//		if (null == base) {
-//			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.nullObject, null));
-//		}
-//
-//		ResultModel result = indexService.updateEstateData(base, null);
-//		return JSON.toJSONString(result);
-//	}
-
-//	@RequestMapping(value = "/preSubmit", method = RequestMethod.POST)
-//	@ApiOperation(value = "提交审核时更新报告状态", notes = "提交审核时更新报告状态")
-//	@ResponseBody
-//	public String preSubmit(@RequestParam String id) {
-//		ResultModel result = indexService.updateRptState(NormalConstant.PRE_SUBMIT_STATE, id);
-//		return JSON.toJSONString(result);
-//	}
+	@RequestMapping(value = "/transferTo", method = RequestMethod.GET)
+	@ApiOperation(value = "转让给其他人盖章", notes = "transferTo(转给的用户名),id(报告id)")
+	@ResponseBody
+	public String transferTo(@RequestParam String transferTo, @RequestParam int id) {
+		ResultModel result = indexService.transferTo(transferTo, id);
+		return JSON.toJSONString(result);
+	}
 
 	@RequestMapping(value = "/updateRptState", method = RequestMethod.POST)
 	@ApiOperation(value = "更新报告状态", notes = "state值说明:{un_check =0 未审核,pre_check=1 准备提交审核,checked=2 已审核,check_pass=3 审核通过,check_reject=4 审核拒绝}")
@@ -161,13 +152,22 @@ public class IndexController {
 	}
 
 	/************************* get *************************/
-	@RequestMapping(value = "/getReports", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/getReports", method = RequestMethod.POST)
 	@ResponseBody
 	@ApiOperation(value = "获取报告列表", notes = "不传参数则获取所有报告信息")
-	public String getReports(@RequestParam(required = false) String branchOffice,
-			@RequestParam(required = false) String state) {
-		log.info("执行getReports,branchOffice={},state={}", branchOffice, state);
-		ResultModel result = indexService.getReportsDatas(branchOffice, state);
+	public String getReportsByConditions(@RequestBody Map<String, Object> params) {
+		log.info("获取的参数为={}", JSON.toJSONString(params));
+		ResultModel result = indexService.getReportsByConditions(params);
+		return JSON.toJSONString(result, SerializerFeature.WriteMapNullValue);
+	}
+
+	@RequestMapping(value = "/getCheckReports", method = RequestMethod.POST)
+	@ResponseBody
+	@ApiOperation(value = "获取报告列表", notes = "不传参数则获取所有报告信息")
+	public String getCheckReportsByConditions(@RequestBody Map<String, Object> params) {
+		log.info("获取的参数为={}", JSON.toJSONString(params));
+		ResultModel result = indexService.getCheckReportsByConditions(params);
 		return JSON.toJSONString(result);
 	}
 
@@ -177,69 +177,95 @@ public class IndexController {
 	public String getDetailReport(@RequestParam int id, @RequestParam String reportType) {
 		log.info("执行getDetailReports,id={},reportType={}", id, reportType);
 		ResultModel result = indexService.getDetailReport(id, reportType);
-		return JSON.toJSONString(result);
+		return JSON.toJSONString(result, SerializerFeature.WriteMapNullValue);
 	}
 
-	@RequestMapping(value = "/getCheckList", method = RequestMethod.GET)
+	@RequestMapping(value = "/getReportsByStates", method = RequestMethod.GET)
 	@ResponseBody
-	@ApiOperation(value = "获取审核列表", notes = "获取审核列表")
-	public String getCheckList() {
-		ResultModel result = indexService.getReportsDatas(null, NormalConstant.pre_check);
+	@ApiOperation(value = "根据多个state查询列表", notes = "前端传入格式:[1,2,3]")
+	public String getReportsByStates(@RequestParam(value = "states[]") List<String> states) {
+		log.info("getReportsByStates接收到的数据为:{}", states);
+		ResultModel result = indexService.getReportsByStates(states);
+		return JSON.toJSONString(result, SerializerFeature.WriteMapNullValue);
+	}
+
+	@RequestMapping(value = "/updateRemarkOrStampState", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateRemarkOrStampState(@RequestBody Map<String, Object> params) {
+		ResultModel result = indexService.updateRemarkOrStampState(params);
 		return JSON.toJSONString(result);
 	}
 
 	/**************** 先上传在保存 ****************************/
 
 	public static void main(String[] args) throws Exception {
-		String json = "{\"reportType\":\"1\",\"projectName\":\"\",\"assessReportNum\":\"\",\"assessStartTime\":\"2019-05-06\",\"assessEndTime\":\"2019-05-06\",\"assessObject\":\"\",\"valueTime\":\"2019-05-06\",\"assessAim\":\"\",\"assessMethod\":\"\",\"valueType\":\"\",\"buildingArea\":\"\",\"floorArea\":\"\",\"assessUnitPrice\":\"\",\"assessTotalPrice\":\"\",\"client\":\"\",\"firstReporter\":\"\",\"firstReporterRgNum\":\"\",\"partReporter1\":\"\",\"partReporter1RgNum\":\"\",\"partReporter2\":\"\",\"partReporter2RgNum\":\"\",\"serviceSource\":\"\",\"branchOffice\":\"\",\"serviceCharge\":\"\",\"checker\":\"\",\"assessOrg\":\"\"}";
+		String json = "{\"reportType\":\"1\",\"projectName\":\"\",\"assessReportNum\":\"\",\"assessStartTime\":\"2019-05-06\",\"assessEndTime\":\"2019-05-06\",\"assessObject\":\"\",\"valueTime\":\"2019-05-06\",\"assessAim\":[\"出让\",\"转让\"],\"assessMethod\":\"\",\"valueType\":\"\",\"buildingArea\":\"\",\"floorArea\":\"\",\"assessUnitPrice\":\"\",\"assessTotalPrice\":\"\",\"client\":\"\",\"firstReporter\":\"\",\"firstReporterRgNum\":\"\",\"partReporter1\":\"\",\"partReporter1RgNum\":\"\",\"partReporter2\":\"\",\"partReporter2RgNum\":\"\",\"serviceSource\":\"\",\"branchOffice\":\"\",\"serviceCharge\":\"\",\"checker\":\"\",\"assessOrg\":\"\"}";
 		JSONObject obj = JSON.parseObject(json);
 		BaseEstate base = getBaseEstate(json);
 		System.out.println(base);
 	}
 
-	@RequestMapping(value = "/upLoad/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateRpt", method = RequestMethod.POST)
+	@ApiOperation(value = "更新报告信息", notes = "只更新报告信息")
+	@ResponseBody
+	public String updateRpt(@RequestBody String json) {
+		System.out.println(json);
+		BaseEstate base = getBaseEstate(json);
+		if (null == base) {
+			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.nullObject, null));
+		}
+
+		ResultModel result = indexService.updateEstateData(base, null);
+		return JSON.toJSONString(result);
+	}
+
+	@RequestMapping(value = "/updateZipUri", method = RequestMethod.POST)
+	@ApiOperation(value = "更新上传zip文件的uri", notes = "字段{reportType:1,id:22,zipUri:'D://test/a.zip'}")
+	@ResponseBody
+	public ResultModel updateZipUri(Map<String, String> params) {
+		return indexService.updateZipUri(params);
+	}
+
+	@RequestMapping(value = "/upLoad/{id}", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "text/plain;charset=UTF-8")
 	@ApiOperation(value = "上传文件", notes = "上传文件")
 	@ResponseBody
-	public String upLoad(@RequestParam("file") MultipartFile file, @PathVariable("id") String id) {
-		log.info("执行upLoad,文件名:{},id:{}", file.getOriginalFilename() == null ? "null" : file.getOriginalFilename(), id);
-		String upURI = "";
-		if (null != file && !file.isEmpty()) {
-			String fileName = file.getOriginalFilename();
-			fileName = FileUtil.getFileName(fileName);
-			System.out.println("文件名字为：：：" + fileName);
-			upURI = id + FileUtil.FILE_SEPARATOR + fileName;
-			try {
-				FileUtil.upLoadFile(file, upURI);
-			} catch (Exception e) {
-				e.printStackTrace();
+	public String upLoad(@RequestParam("file") List<MultipartFile> file, @PathVariable("id") String id) {
+		// log.info("执行upLoad,文件名:{},id:{}", file.getOriginalFilename() == null ? "null"
+		// : file.getOriginalFilename(), id);
+		if (file == null || file.isEmpty()) {
+			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.fail, "无文件传入！"));
+		}
+		BaseEstate base = new BaseEstate();
+		base.setId(Integer.parseInt(id));
+		List<FileResult> results = null;
+		try {
+			results = FileUtil.upLoad(file, base);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.fail, "上传文件异常！"));
+		}
+		wordToPdf(results);
+		return JSON.toJSONString(ResultFactory.newResultModel(EnumField.sucess, results));
+	}
+
+	/**
+	 * @param results
+	 * @author lenovo
+	 * @date 2019年8月11日 下午12:46:56
+	 */
+	private void wordToPdf(List<FileResult> results) {
+		if(null ==results) {
+			return;
+		}
+		for (FileResult r : results) {
+			if(r.getWordPath().endsWith(".pdf")) {
+				continue;
+			}
+			if (!FileUtil.isZip(r.getWordPath())) {
+				indexService.word2Pdf(r);// 异步执行word转为pdf
 			}
 		}
-		log.info("返回前端的uri:{}", upURI);
-		return upURI;
 	}
-//
-//	@RequestMapping(value = "/upLoad2/{id}", method = RequestMethod.POST)
-//	@ApiOperation(value = "上传文件", notes = "上传文件")
-//	@ResponseBody
-//	public String upLoad2(HttpServletRequest request, @PathVariable String id) {
-//		MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
-//		MultipartFile file = req.getFile("file");
-//		log.info("执行upLoad,文件名:{},id:{}", file.getOriginalFilename() == null ? "null" : file.getOriginalFilename(), id);
-//		String upURI = "";
-//		if (!file.isEmpty()) {
-//			String fileName = file.getOriginalFilename();
-//			fileName = FileUtil.getFileName(fileName);
-//			System.out.println("文件名字为：：：" + fileName);
-//			upURI = id + FileUtil.FILE_SEPARATOR + fileName;
-//			try {
-//				FileUtil.upLoadFile(file, upURI);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		log.info("返回前端的uri:{}", upURI);
-//		return upURI;
-//	}
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	@ResponseBody

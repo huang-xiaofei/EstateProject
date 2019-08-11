@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 /**
  * @author lenovo
  * @data 2019年6月26日 上午11:28:34
@@ -33,11 +36,12 @@ public class MyServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("GB2312");
 		try {
+			MultipartFile files = ((MultipartHttpServletRequest) request).getFile("file");
 			// 获取上传的文件id信息
-			String fileid = request.getParameter("fileid");
-			System.out.println(fileid);
+			String fileid = request.getParameter("file");
+			System.out.println(files.getOriginalFilename());
 			String tempFileName = UUID.randomUUID().toString();
 
 			// create the temp file.

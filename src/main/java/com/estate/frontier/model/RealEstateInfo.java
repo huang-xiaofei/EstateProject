@@ -36,7 +36,7 @@ public class RealEstateInfo extends BaseEstate {
 	private String serviceSource;// 业务来源
 	// private String branchOffice;// 分公司
 	private String serviceCharge;// 业务收费
-	private String checker;// 审核员
+	//private String checker;// 审核员
 	private String assessOrg;// 评估机构
 	// private String reportType;// 报告类型
 	// private String upFileURI;// 上传文件的uri
@@ -153,13 +153,6 @@ public class RealEstateInfo extends BaseEstate {
 		this.serviceCharge = serviceCharge;
 	}
 
-	public String getChecker() {
-		return checker;
-	}
-
-	public void setChecker(String checker) {
-		this.checker = checker;
-	}
 
 	public String getAssessOrg() {
 		return assessOrg;

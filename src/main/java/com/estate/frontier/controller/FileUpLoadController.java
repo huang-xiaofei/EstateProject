@@ -28,6 +28,7 @@ import io.swagger.annotations.Api;
 @Controller
 @RequestMapping("/fileController")
 @Api(value = "fileUpLoadController")
+@Deprecated
 public class FileUpLoadController {
 	@RequestMapping(value = "/file")
 	public String file() {

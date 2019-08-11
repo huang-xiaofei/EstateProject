@@ -28,9 +28,12 @@ public class LandInfo extends BaseEstate {
 	private String partReporter2RgNum;// 参与报告人2注册号
 	private String serviceSource;// 业务来源
 	private double serviceCharge;// 业务收费
-	private String checker;// 审核员
+	//private String checker;// 审核员
 	private String assessOrg;// 评估机构
-
+	private String clientAddr;//委托人地址
+	private String quarter;//季度
+	private String pl;//项目负责人
+	
 	public String getLandSite() {
 		return landSite;
 	}
@@ -159,13 +162,6 @@ public class LandInfo extends BaseEstate {
 		this.serviceCharge = serviceCharge;
 	}
 
-	public String getChecker() {
-		return checker;
-	}
-
-	public void setChecker(String checker) {
-		this.checker = checker;
-	}
 
 	public String getAssessOrg() {
 		return assessOrg;
@@ -173,6 +169,30 @@ public class LandInfo extends BaseEstate {
 
 	public void setAssessOrg(String assessOrg) {
 		this.assessOrg = assessOrg;
+	}
+
+	public String getClientAddr() {
+		return clientAddr;
+	}
+
+	public void setClientAddr(String clientAddr) {
+		this.clientAddr = clientAddr;
+	}
+
+	public String getQuarter() {
+		return quarter;
+	}
+
+	public void setQuarter(String quarter) {
+		this.quarter = quarter;
+	}
+
+	public String getPl() {
+		return pl;
+	}
+
+	public void setPl(String pl) {
+		this.pl = pl;
 	}
 
 }

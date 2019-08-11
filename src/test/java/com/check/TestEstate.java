@@ -44,7 +44,7 @@ public class TestEstate {
 		landInfo.setAssessEndTime(new Date());
 		landInfo.setValueTime(new Date());
 		landInfo.setAssessObject("房地产一期评估");
-		landInfo.setAssessAim("出让");
+		//landInfo.setAssessAim("出让");
 		landInfo.setAssessMethod("1-比较法");
 		// landInfo.setLandSite("江苏省南京市江宁区苏源大道11号");
 		// landInfo.setLandArea(93.5);
@@ -79,7 +79,7 @@ public class TestEstate {
 		landInfo.setAssessEndTime(new Date());
 		landInfo.setValueTime(new Date());
 		landInfo.setAssessObject("房地产二期评估");
-		landInfo.setAssessAim("出让");
+		//landInfo.setAssessAim("出让");
 		landInfo.setAssessMethod("1-比较法");
 		landInfo.setLandSite("江苏省南京市江宁区苏源大道11号");
 		landInfo.setLandArea(93.5);

@@ -3,6 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.estate.frontier.mapper.ReportInterFace">
+	<sql id="all_column">
+		id,orderNum, applicationNum,
+		branchOffice,
+		assessAim,
+		reportType,
+		applicationDate,
+		state,
+		checkResult, applicant,
+		login,transferTo,checker,stampState,remark
+	</sql>
 	<insert id="save"
 		parameterType="com.estate.frontier.model.ReportInfo"
 		useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -12,7 +22,8 @@
 		branchOffice, assessAim,
 		reportType,
 		applicationDate, state,
-		checkResult, applicant)
+		checkResult,
+		applicant,login,checker)
 		VALUES
 		(
 		#{orderNum},
@@ -20,27 +31,46 @@
 		#{branchOffice}, #{assessAim},
 		#{reportType},
 		#{applicationDate},
-		#{state},#{checkResult},#{applicant});
+		#{state},#{checkResult},#{applicant},#{login},#{checker});
 	</insert>
 	<update id="updateRptState">
 		UPDATE
 		report_list SET
-		state =#{state}
+		state
+		=#{state},checkResult=#{state}
 		WHERE id=#{id}
+	</update>
+	<update id="updateRemarkOrStampState">
+		UPDATE
+		report_list SET
+		<if test="params.stampState !=null and params.stampState !=''">
+			stampState=#{params.stampState},
+		</if>
+		<if test="params.remark !=null and params.remark !=''">
+			remark=#{params.remark},
+		</if>
+		id=#{params.id}
+		WHERE id=#{params.id}
 	</update>
 	<update id="update"
 		parameterType="com.estate.frontier.model.ReportInfo">
 		UPDATE
 		report_list SET
 		orderNum = #{orderNum},
-		applicationNum =#{applicationNum},
+		applicationNum=#{applicationNum},
 		branchOffice=#{branchOffice},
-		assessAim= #{assessAim},
+		assessAim=#{assessAim},
 		reportType=#{reportType},
-		applicationDate =#{applicationDate},
+		<!-- applicationDate=#{applicationDate}, -->
 		state=#{state},
 		checkResult=#{checkResult},
-		applicant=#{applicant}
+		<if test="applicant !=null and applicant !=''">
+			applicant=#{applicant},
+		</if>
+		<if test="checker !=null and checker !=''">
+			checker=#{checker},
+		</if>
+		id=#{id}
 		WHERE id=#{id}
 	</update>
 	<delete id="delete" parameterType="int">
@@ -49,28 +79,99 @@
 	</delete>
 	<select id="getAllReports"
 		resultType="com.estate.frontier.model.ReportInfo">
-		select id,orderNum, applicationNum,
-		branchOffice,
-		assessAim,
-		reportType,
-		applicationDate, state,
-		checkResult, applicant
+		select
+		<include refid="all_column" />
 		from
 		report_list
 	</select>
-	<select id="getReportsByCondition"
+
+	<select id="getReportsByConditions"
 		resultType="com.estate.frontier.model.ReportInfo">
-		select id,orderNum, applicationNum,
-		branchOffice,
-		assessAim,
-		reportType,
-		applicationDate, state,
-		checkResult, applicant
+		select
+		<include refid="all_column" />
 		from
 		report_list
 		<where>
-			<if test="state !=null and state.length>0">state=#{state}</if>
-			<if test="branchOffice !=null and branchOffice.length>0">and branchOffice=#{branchOffice}</if>
+			<!-- where标签会自动移除if中的and -->
+			<if test="params.state !=null and params.state.size>0">
+				and state in
+				<foreach collection="params.state" item="s" index="index"
+					open="(" close=")" separator=",">
+					#{s}
+				</foreach>
+			</if>
+			<if
+				test="params.branchOffice !=null and params.branchOffice.length>0"> and branchOffice=#{params.branchOffice}</if>
+			<!-- <if test="params.login !=null and params.login !=''">
+				and login=#{params.login}
+				( transferTo=#{params.login} or login=#{params.login} <if test="params.checker 
+					!=null and params.checker.length>0"> or checker=#{params.checker} </if> )
+			</if> -->
+			<if test="params.applicant !=null and params.applicant !=''">
+				and applicant=#{params.applicant}
+			</if>
 		</where>
 	</select>
+
+	<select id="getCheckReportsByConditions"
+		resultType="com.estate.frontier.model.ReportInfo">
+		select
+		<include refid="all_column" />
+		from
+		report_list
+		<where>
+			<!-- where标签会自动移除if中的and -->
+			<if test="params.state !=null and params.state.size>0">
+				and state in
+				<foreach collection="params.state" item="s" index="index"
+					open="(" close=")" separator=",">
+					#{s}
+				</foreach>
+			</if>
+			<if test="params.branchOffice !=null and params.branchOffice !=''">
+				and branchOffice=#{params.branchOffice}
+			</if>
+			<if test="params.transferTo !=null and params.transferTo !=''">
+				and transferTo=#{params.transferTo}
+			</if>
+			<if test="params.checker !=null and params.checker !=''">
+				and checker=#{params.checker}
+			</if>
+			<if test="params.stampState !=null and params.stampState  !=''">
+				and stampState =#{params.stampState}
+			</if>
+			<!-- <if test="params.login !=null and params.login.length>0"> and ( transferTo=#{params.login} 
+				<if test="params.checker !=null and params.checker.length>0"> or checker=#{params.checker} 
+				</if> ) </if> -->
+		</where>
+
+	</select>
+
+
+
+	<select id="selectReportByStates"
+		resultType="com.estate.frontier.model.ReportInfo">
+		select
+		<include refid="all_column" />
+		from
+		report_list
+		where state in
+		<foreach collection="list" item="state" index="index" open="("
+			close=")" separator=",">
+			#{state}
+		</foreach>
+	</select>
+	<update id="updateTransfer">
+		UPDATE
+		report_list SET
+		transferTo=#{transferTo}
+		WHERE
+		id=#{id}
+	</update>
+
+	<!-- <select id="getReportsByCondition" resultType="com.estate.frontier.model.ReportInfo"> 
+		select <include refid="all_column" /> from report_list <where> <if test="state 
+		!=null and state.length>0">and state=#{state}</if> <if test="branchOffice 
+		!=null and branchOffice.length>0">and branchOffice=#{branchOffice}</if> </where> 
+		</select> -->
 </mapper>

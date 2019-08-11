@@ -63,7 +63,7 @@ public class MyBatisTest {
 	public void testSaveReport() throws Exception {
 		ReportInfo info = new ReportInfo();
 		info.setApplicant("����");
-		info.setApplicationDate(new Date());
+		//info.setApplicationDate(new Date());
 		info.setApplicationNum("001005");
 		info.setAssessAim("����Ͷ��");
 		info.setBranchOffice("����");

@@ -24,6 +24,7 @@ import com.aspose.words.Shape;
 import com.aspose.words.ShapeType;
 import com.aspose.words.VerticalAlignment;
 import com.aspose.words.WrapType;
+import com.estate.frontier.util.FileUtil.FileResult;
 
 /**
  * @author lenovo
@@ -32,8 +33,8 @@ import com.aspose.words.WrapType;
 public class Word2PdfUtil {
 
 	public static void main(String[] args) {
-		doc2pdf("C:\\Users\\lenovo\\Desktop\\mybatis.doc");
-
+		//doc2pdf("F:\\soft_install\\eclipse2019\\eclipse-workspace\\report-approval\\target\\gy.doc");
+		doc2pdf(new FileResult("kk", "F:\\soft_install\\eclipse2019\\eclipse-workspace\\report-approval\\target\\mybatis.docx", 10));
 	}
 
 	public static boolean doc2pdf(String wordPath) {
@@ -41,7 +42,15 @@ public class Word2PdfUtil {
 		String pdfPath = path + ".pdf";
 		return doc2pdf(wordPath, pdfPath);
 	}
-
+	public static boolean doc2pdf(FileResult result) {
+		String realPath =result.getRealPath();
+		if(realPath.endsWith(".zip") ||realPath.endsWith(".rar")) {
+			return true;
+		}
+		String path = realPath.substring(0, realPath.lastIndexOf(FileUtil.FILE_SEPARATOR)+1);
+		String pdfPath = path +FileUtil.FILE_SEPARATOR+result.getId()+ ".pdf";
+		return doc2pdf(result.getRealPath(), pdfPath);
+	}
 	public static boolean doc2pdf(String inPath, String outPath) {
 		if (!getLicense()) {
 			return false;

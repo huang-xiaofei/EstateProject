@@ -4,11 +4,16 @@
 package com.estate.frontier.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.estate.frontier.model.base.BaseEstate;
 
 /**
  * 
@@ -32,6 +37,16 @@ public final class FileUtil {
 		return uri.substring(0, uri.lastIndexOf("."));
 	}
 
+	public static List<FileResult> upLoad(List<MultipartFile> files, BaseEstate base) throws Exception {
+		List<FileResult> results = new ArrayList<FileUtil.FileResult>();
+		for (MultipartFile multipartFile : files) {
+			FileResult fileResult = upLoad(multipartFile, base);
+			results.add(fileResult);
+		}
+
+		return results;
+	}
+
 	/**
 	 * 上传文件 返回文件的保存路径
 	 * 
@@ -42,17 +57,19 @@ public final class FileUtil {
 	 * @author lenovo
 	 * @date 2019年7月12日 上午11:00:18
 	 */
-	public static FileResult upLoad(MultipartFile file, int id) throws Exception {
-		if (null == file || file.isEmpty()) {
+	public static FileResult upLoad(MultipartFile file, BaseEstate base) throws Exception {
+		if (null == file || base == null) {
 			log.debug("传入的文件为空，返回前端的uri:{}", "null");
 			return null;
 		}
-		log.debug("执行upLoad,文件名:{}", file.getOriginalFilename() == null ? "null" : file.getOriginalFilename());
 		String fileName = file.getOriginalFilename();
 		fileName = FileUtil.getFileName(fileName);
-		System.out.println("文件名字为：：：" + fileName);
+		log.debug("保存文件的原始文件名:{},处理后的文件名为:{}", file.getOriginalFilename() == null ? "null" : file.getOriginalFilename(),
+				fileName);
+		// 拼接uri
+		String upURI = getUri(base, fileName);
+		log.info("保存文件拼接的uri为:{}", upURI);
 
-		String upURI = id + FileUtil.FILE_SEPARATOR + fileName;
 		String abPath = "";
 		try {
 			abPath = FileUtil.upLoadFile(file, upURI);
@@ -60,15 +77,38 @@ public final class FileUtil {
 			e.printStackTrace();
 			throw e;
 		}
-		log.debug("返回前端的文件路径:{}", abPath);
-		return new FileResult(upURI, abPath);
+		log.info("保存文件后返回的路径为:{}", abPath);
+		return new FileResult(upURI, abPath, base.getId());
+	}
+
+	/**
+	 * @param base
+	 * @param fileName
+	 * @return
+	 * @author lenovo
+	 * @date 2019年8月11日 上午10:30:43
+	 */
+	private static String getUri(BaseEstate base, String fileName) {
+		StringBuilder uri = new StringBuilder();
+		String branchOffice = base.getBranchOffice();
+		if (StringUtils.isNotEmpty(branchOffice)) {
+			// uri.append(branchOffice).append(FileUtil.FILE_SEPARATOR);
+			uri.append(base.getId()).append(FileUtil.FILE_SEPARATOR);
+			uri.append(fileName);
+		} else {
+			uri.append(base.getId()).append(FileUtil.FILE_SEPARATOR);
+			uri.append(fileName);
+		}
+		String upURI = uri.toString();
+		return upURI;
 	}
 
 	public static class FileResult {
-		private String uri;
-		private String wordPath;
+		private String uri;//文件的后缀路径
+		private String wordPath;//可以浏览器直接下载的路径(http路径)
 		private String pdfPath;
-		private String realPath;
+		private String realPath;//在服务器上的物理地址
+		private int id;
 
 		/**
 		 * @param uri
@@ -83,6 +123,37 @@ public final class FileUtil {
 				this.wordPath = OPEN_URL + uri;
 				this.pdfPath = OPEN_URL + FileUtil.getUriNoSuffix(uri) + ".pdf";
 			}
+		}
+
+		// 以id作为pdf文件名
+		public FileResult(String uri, String realPath, int id) {
+			super();
+			this.uri = uri;
+			this.realPath = realPath;//文件在服务器上的真实地址
+			this.id = id;
+			if (!StringUtils.isEmpty(uri)) {
+				this.wordPath = OPEN_URL + uri;
+				if(!isZip(uri)) {//压缩包不生成pdf路径
+					this.pdfPath = OPEN_URL + id + "/" + id + ".pdf";
+				}
+			}
+		}
+
+		public FileResult(String uri, String realPath, String zipPath, int id) {
+			super();
+			this.uri = uri;
+			this.realPath = realPath;
+			this.id = id;
+			if (!StringUtils.isEmpty(uri)) {
+				this.wordPath = OPEN_URL + uri;
+				if(!isZip(uri)) {//压缩包不生成pdf路径
+					this.pdfPath = OPEN_URL + id + "/" + id + ".pdf";
+				}
+			}
+		}
+
+		public int getId() {
+			return id;
 		}
 
 		public String getRealPath() {
@@ -101,6 +172,16 @@ public final class FileUtil {
 			return pdfPath;
 		}
 
+	}
+
+	public static boolean  isZip(String path) {
+		if(StringUtils.isEmpty(path)) {
+			return true;
+		}
+		if(path.endsWith(".zip") ||path.endsWith(".rar")) {
+			return true;
+		}
+		return false;
 	}
 
 	public static String upLoadFile(MultipartFile file, String upURI) throws Exception {
@@ -150,13 +231,15 @@ public final class FileUtil {
 		return true;
 	}
 
-	public static String getFileName(String path) {
+	public static String getFileName(String path) throws IOException {
 		String p = normalizer(path);
-		return new File(p).getName();
+		String fileName = new File(p).getName();
+		return fileName;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(getUriNoSuffix("F:\\1//33/4test.pdf"));
+	public static void main(String[] args) throws IOException {
+		System.out.println(
+				getFileName("F:\\soft_install\\eclipse2019\\eclipse-workspace\\report-approval\\target\\发啊啊.pdf"));
 		;
 	}
 
