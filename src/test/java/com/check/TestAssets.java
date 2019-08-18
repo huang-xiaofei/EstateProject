@@ -87,7 +87,7 @@ public class TestAssets {
 		assetsInfo.setNoAssetsFee(false);
 		assetsInfo.setNoNetAssets(true);
 		assetsInfo.setBranchOffice("迪迪分公司");
-		indexService.updateEstateData(assetsInfo, null);
+		indexService.updateEstateData(assetsInfo);
 	}
 
 	@Test

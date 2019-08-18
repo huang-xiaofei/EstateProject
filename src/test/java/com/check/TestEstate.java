@@ -100,7 +100,7 @@ public class TestEstate {
 		landInfo.setBranchOffice("珍爱网-房地产分公司");
 		landInfo.setChecker("张益达");
 		landInfo.setAssessOrg("江苏) 天征评估机构");
-		indexService.updateEstateData(landInfo, null);
+		indexService.updateEstateData(landInfo);
 	}
 
 	@Test

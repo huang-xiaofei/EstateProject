@@ -102,11 +102,10 @@
 			</if>
 			<if
 				test="params.branchOffice !=null and params.branchOffice.length>0"> and branchOffice=#{params.branchOffice}</if>
-			<!-- <if test="params.login !=null and params.login !=''">
-				and login=#{params.login}
+			<!-- <if test="params.login !=null and params.login !=''"> and login=#{params.login} 
 				( transferTo=#{params.login} or login=#{params.login} <if test="params.checker 
-					!=null and params.checker.length>0"> or checker=#{params.checker} </if> )
-			</if> -->
+				!=null and params.checker.length>0"> or checker=#{params.checker} </if> ) 
+				</if> -->
 			<if test="params.applicant !=null and params.applicant !=''">
 				and applicant=#{params.applicant}
 			</if>
@@ -147,7 +146,31 @@
 
 	</select>
 
-
+	<select id="getStaticsByConditions"
+		resultType="com.estate.frontier.model.ReportInfo">
+		select
+		<include refid="all_column" />
+		from
+		report_list report
+		<where>
+			<!-- where标签会自动移除if中的and -->
+			<if test="params.branchOffice !=null and params.branchOffice !=''">
+				and branchOffice=#{params.branchOffice}
+			</if>
+			<if test="params.reportType !=null and params.reportType !=''">
+				and reportType=#{params.reportType}
+			</if>
+			<if test="params.assessAim !=null and params.assessAim !=''">
+				and assessAim=#{params.assessAim}
+			</if>
+			<if test="params.starTime != null and params.starTime != ''">
+			 <![CDATA[ and applicationDate  >=  #{params.starTime}  ]]>
+			</if>
+			<if test="params.endTime != null and params.endTime != ''">
+				<![CDATA[ and applicationDate  <=  #{params.endTime}  ]]>
+			</if>
+		</where>
+	</select>
 
 	<select id="selectReportByStates"
 		resultType="com.estate.frontier.model.ReportInfo">
@@ -160,6 +183,14 @@
 			close=")" separator=",">
 			#{state}
 		</foreach>
+	</select>
+	<select id="selectReportById"
+		resultType="com.estate.frontier.model.ReportInfo">
+		select
+		<include refid="all_column" />
+		from
+		report_list
+		where id =#{id}
 	</select>
 	<update id="updateTransfer">
 		UPDATE

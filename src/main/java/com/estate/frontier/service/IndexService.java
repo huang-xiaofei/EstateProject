@@ -4,6 +4,7 @@
 package com.estate.frontier.service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import com.estate.frontier.mapper.RealEstateInterface;
 import com.estate.frontier.mapper.ReportInterFace;
 import com.estate.frontier.mapper.base.BaseInterface;
 import com.estate.frontier.model.ReportInfo;
+import com.estate.frontier.model.StaticsModel;
 import com.estate.frontier.model.base.BaseEstate;
 import com.estate.frontier.model.constant.EnumField;
 import com.estate.frontier.model.constant.NormalConstant;
@@ -97,20 +99,20 @@ public class IndexService {
 
 			int id = reportInfo.getId();
 			base.setId(id);
-			List<FileResult> result = FileUtil.upLoad(files, base);// 上传文件
-
-			base.setId(id);
-			for (FileResult fileResult : result) {
-				if (FileUtil.isZip(fileResult.getRealPath())) {
-					base.setUpFileURI(fileResult.getWordPath());
-				} else {
-					base.setWordUri(fileResult.getWordPath());
-					base.setPdfUri(fileResult.getPdfPath());
-				}
-			}
+//			List<FileResult> result = FileUtil.upLoad(files, base);// 上传文件
+//
+//			base.setId(id);
+//			for (FileResult fileResult : result) {
+//				if (FileUtil.isZip(fileResult.getRealPath())) {
+//					base.setUpFileURI(fileResult.getWordPath());
+//				} else {
+//					base.setWordUri(fileResult.getWordPath());
+//					base.setPdfUri(fileResult.getPdfPath());
+//				}
+//			}
 
 			getReportDao(base.getReportType()).save(base);// 保存报告明细
-			return ResultFactory.newResultModel(EnumField.sucess, result);
+			return ResultFactory.newResultModel(EnumField.sucess, base.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -138,16 +140,10 @@ public class IndexService {
 	 * @date 2019年6月25日 上午9:16:37
 	 */
 	@Transactional
-	public ResultModel updateEstateData(BaseEstate base, MultipartFile file) {
+	public ResultModel updateEstateData(BaseEstate base) {
 		try {
 			ReportInfo reportInfo = getReportInfo(base);
 			reportInterFace.update(reportInfo);// 更新report_list表
-
-			FileResult result = FileUtil.upLoad(file, base);// 上传文件
-			if (null != result) {
-				base.setWordUri(result.getWordPath());
-				base.setPdfUri(result.getPdfPath());
-			}
 
 			getReportDao(base.getReportType()).update(base);// 保存报告明细
 			return ResultFactory.newResultModel(EnumField.sucess, base.getPdfUri());
@@ -183,9 +179,10 @@ public class IndexService {
 	public ResultModel deleteEstateData(int primaryKey, String reportType) {
 		try {
 			int id = primaryKey;
+			BaseEstate baseEstate =getReportDao(reportType).get(id);//查询出需要删除的路径
 			reportInterFace.delete(id);
 			getReportDao(reportType).delete(id);
-			FileUtil.deleteFold(id + "");
+			FileUtil.deleteFold(baseEstate);
 			return ResultFactory.newResultModel(EnumField.sucess, null);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -310,6 +307,33 @@ public class IndexService {
 			}
 			List<ReportInfo> lists = reportInterFace.getCheckReportsByConditions(params);
 			return ResultFactory.newResultModel(EnumField.sucess, lists);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultFactory.newResultModel(EnumField.fail, null);
+		}
+	}
+	public ReportInfo getReportById(int id) {
+		try {
+			ReportInfo report = reportInterFace.getReportById(id);
+			return report;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public ResultModel getStaticsByConditions(Map<String, Object> params) {
+		try {
+			if (null == params || params.isEmpty()) {
+				params = new HashMap<String, Object>();
+			}
+			List<StaticsModel> staticsModels = new ArrayList<StaticsModel>();
+			List<ReportInfo> lists = reportInterFace.getStaticsByConditions(params);
+			for (ReportInfo reportInfo : lists) {
+				ResultModel model = getDetailReport(reportInfo.getId(), reportInfo.getReportType());
+				staticsModels.add(new StaticsModel(reportInfo, (BaseEstate) model.getData()));
+			}
+			return ResultFactory.newResultModel(EnumField.sucess, staticsModels);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResultFactory.newResultModel(EnumField.fail, null);

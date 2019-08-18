@@ -17,8 +17,8 @@ spring:
         force: true
       multipart:
        enabled: true
-       max-file-size: 20MB
-       max-request-size: 20MB   
+       max-file-size: 50MB
+       max-request-size: 50MB   
 mybatis:  mapper-locations: classpath:mapper/*.xml
   configuration:    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     call-setters-on-nulls: true

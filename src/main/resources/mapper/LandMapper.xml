@@ -82,7 +82,7 @@
 		resultType="com.estate.frontier.model.LandInfo">
 		SELECT id, projectName, assessReportNum, assessStartTime,
 		assessEndTime, assessObject, valueTime, assessAim, assessMethod,
-		reportType, branchOffice, upfileuri, landSite, landArea, landAmount,
+		reportType, branchOffice, upFileURI, landSite, landArea, landAmount,
 		assessUnitPrice, assessTotalPrice, client, clientEmail, clientPhone,
 		firstReporter, partReporter1, partReporter1RgNum, partReporter2,
 		partReporter2RgNum, serviceSource, serviceCharge, checker,

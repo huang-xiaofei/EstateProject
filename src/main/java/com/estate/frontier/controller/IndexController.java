@@ -19,7 +19,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -88,6 +87,19 @@ public class IndexController {
 		System.out.println("------------------------------------------------");
 		return JSON.toJSONString(result);
 	}
+	@RequestMapping(value = "/saveRpt", method = RequestMethod.POST)
+	@ApiOperation(value = "保存报告信息", notes = "保存报告信息")
+	@ResponseBody
+	public String saveRpt(@RequestBody String json) {
+		log.info("saveRpt收到数据:{}",json);
+		BaseEstate base = getBaseEstate(json);
+		if (null == base) {
+			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.nullObject, null));
+		}
+		ResultModel result = indexService.saveEstateData(base, null);
+		
+		return JSON.toJSONString(result);
+	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
@@ -105,25 +117,25 @@ public class IndexController {
 		System.out.println("------------------------------------------------");
 		return JSON.toJSONString(result);
 	}
-
-	//@RequestMapping(value = "/updateRptOrFile", method = RequestMethod.POST)
-	@ApiOperation(value = "更新报告和文件信息", notes = "先更新报告信息，在上传文件")
-	@ResponseBody
-	@Deprecated
-	public String updateRptOrFile(HttpServletRequest request) {
-		MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");
-		String json = request.getParameter("data");
-		log.info("updateRptOrFile->收到id:{},json:{}", json);
-		BaseEstate base = getBaseEstate(json);
-		if (null == base) {
-			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.nullObject, null));
-		}
-		ResultModel result = indexService.updateEstateData(base, file);
-
-		indexService.word2Pdf(result.getData());// 异步执行word转为pdf
-		System.out.println("------------------------------------------------");
-		return JSON.toJSONString(result);
-	}
+//
+//	//@RequestMapping(value = "/updateRptOrFile", method = RequestMethod.POST)
+//	@ApiOperation(value = "更新报告和文件信息", notes = "先更新报告信息，在上传文件")
+//	@ResponseBody
+//	@Deprecated
+//	public String updateRptOrFile(HttpServletRequest request) {
+//		MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");
+//		String json = request.getParameter("data");
+//		log.info("updateRptOrFile->收到id:{},json:{}", json);
+//		BaseEstate base = getBaseEstate(json);
+//		if (null == base) {
+//			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.nullObject, null));
+//		}
+//		ResultModel result = indexService.updateEstateData(base, file);
+//
+//		indexService.word2Pdf(result.getData());// 异步执行word转为pdf
+//		System.out.println("------------------------------------------------");
+//		return JSON.toJSONString(result);
+//	}
 
 	@RequestMapping(value = "/transferTo", method = RequestMethod.GET)
 	@ApiOperation(value = "转让给其他人盖章", notes = "transferTo(转给的用户名),id(报告id)")
@@ -179,7 +191,14 @@ public class IndexController {
 		ResultModel result = indexService.getDetailReport(id, reportType);
 		return JSON.toJSONString(result, SerializerFeature.WriteMapNullValue);
 	}
-
+	@RequestMapping(value = "/getStaticsList", method = RequestMethod.POST)
+	@ResponseBody
+	@ApiOperation(value = "获取统计列表", notes = "{branchOffice:,reportType:,assessAim:,valueTime}")
+	public String getStaticsList(@RequestBody Map<String, Object> params) {
+		log.info("获取的参数为={}", JSON.toJSONString(params));
+		ResultModel result = indexService.getStaticsByConditions(params);
+		return JSON.toJSONString(result, SerializerFeature.WriteMapNullValue);
+	}
 	@RequestMapping(value = "/getReportsByStates", method = RequestMethod.GET)
 	@ResponseBody
 	@ApiOperation(value = "根据多个state查询列表", notes = "前端传入格式:[1,2,3]")
@@ -215,7 +234,7 @@ public class IndexController {
 			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.nullObject, null));
 		}
 
-		ResultModel result = indexService.updateEstateData(base, null);
+		ResultModel result = indexService.updateEstateData(base);
 		return JSON.toJSONString(result);
 	}
 
@@ -226,20 +245,18 @@ public class IndexController {
 		return indexService.updateZipUri(params);
 	}
 
-	@RequestMapping(value = "/upLoad/{id}", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = "/upLoad", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "text/plain;charset=UTF-8")
 	@ApiOperation(value = "上传文件", notes = "上传文件")
 	@ResponseBody
-	public String upLoad(@RequestParam("file") List<MultipartFile> file, @PathVariable("id") String id) {
+	public String upLoad(@RequestParam("file") List<MultipartFile> file) {
 		// log.info("执行upLoad,文件名:{},id:{}", file.getOriginalFilename() == null ? "null"
 		// : file.getOriginalFilename(), id);
 		if (file == null || file.isEmpty()) {
 			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.fail, "无文件传入！"));
 		}
-		BaseEstate base = new BaseEstate();
-		base.setId(Integer.parseInt(id));
 		List<FileResult> results = null;
 		try {
-			results = FileUtil.upLoad(file, base);
+			results = FileUtil.upLoad(file);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.fail, "上传文件异常！"));

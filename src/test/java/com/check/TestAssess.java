@@ -54,7 +54,7 @@ public class TestAssess {
 		assessInfo.setChecker("张。。");
 		assessInfo.setAssessOrg("评估有限公司");
 		assessInfo.setAssessAim("出售");
-		indexService.updateEstateData(assessInfo, null);
+		indexService.updateEstateData(assessInfo);
 	}
 
 	@Test

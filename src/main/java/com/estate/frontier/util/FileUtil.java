@@ -37,10 +37,10 @@ public final class FileUtil {
 		return uri.substring(0, uri.lastIndexOf("."));
 	}
 
-	public static List<FileResult> upLoad(List<MultipartFile> files, BaseEstate base) throws Exception {
+	public static List<FileResult> upLoad(List<MultipartFile> files) throws Exception {
 		List<FileResult> results = new ArrayList<FileUtil.FileResult>();
 		for (MultipartFile multipartFile : files) {
-			FileResult fileResult = upLoad(multipartFile, base);
+			FileResult fileResult = upLoad(multipartFile);
 			results.add(fileResult);
 		}
 
@@ -57,8 +57,8 @@ public final class FileUtil {
 	 * @author lenovo
 	 * @date 2019年7月12日 上午11:00:18
 	 */
-	public static FileResult upLoad(MultipartFile file, BaseEstate base) throws Exception {
-		if (null == file || base == null) {
+	public static FileResult upLoad(MultipartFile file) throws Exception {
+		if (null == file) {
 			log.debug("传入的文件为空，返回前端的uri:{}", "null");
 			return null;
 		}
@@ -67,7 +67,9 @@ public final class FileUtil {
 		log.debug("保存文件的原始文件名:{},处理后的文件名为:{}", file.getOriginalFilename() == null ? "null" : file.getOriginalFilename(),
 				fileName);
 		// 拼接uri
-		String upURI = getUri(base, fileName);
+		// String upURI = getUri(base, fileName);
+		long random = System.currentTimeMillis();
+		String upURI = getUri(fileName, random);
 		log.info("保存文件拼接的uri为:{}", upURI);
 
 		String abPath = "";
@@ -78,7 +80,7 @@ public final class FileUtil {
 			throw e;
 		}
 		log.info("保存文件后返回的路径为:{}", abPath);
-		return new FileResult(upURI, abPath, base.getId());
+		return new FileResult(upURI, abPath, random);
 	}
 
 	/**
@@ -103,12 +105,19 @@ public final class FileUtil {
 		return upURI;
 	}
 
+	private static String getUri(String fileName, long random) {
+		StringBuilder uri = new StringBuilder();
+		uri.append(random).append(FileUtil.FILE_SEPARATOR);
+		uri.append(fileName);
+		return uri.toString();
+	}
+
 	public static class FileResult {
-		private String uri;//文件的后缀路径
-		private String wordPath;//可以浏览器直接下载的路径(http路径)
+		private String uri;// 文件的后缀路径
+		private String wordPath;// 可以浏览器直接下载的路径(http路径)
 		private String pdfPath;
-		private String realPath;//在服务器上的物理地址
-		private int id;
+		private String realPath;// 在服务器上的物理地址
+		private long id;
 
 		/**
 		 * @param uri
@@ -121,19 +130,21 @@ public final class FileUtil {
 			this.realPath = realPath;
 			if (!StringUtils.isEmpty(uri)) {
 				this.wordPath = OPEN_URL + uri;
-				this.pdfPath = OPEN_URL + FileUtil.getUriNoSuffix(uri) + ".pdf";
+				if (!isZip(uri)) {// 压缩包不生成pdf路径
+					this.pdfPath = OPEN_URL + FileUtil.getUriNoSuffix(uri) + ".pdf";
+				}
 			}
 		}
 
 		// 以id作为pdf文件名
-		public FileResult(String uri, String realPath, int id) {
+		public FileResult(String uri, String realPath, long id) {
 			super();
 			this.uri = uri;
-			this.realPath = realPath;//文件在服务器上的真实地址
+			this.realPath = realPath;// 文件在服务器上的真实地址
 			this.id = id;
 			if (!StringUtils.isEmpty(uri)) {
 				this.wordPath = OPEN_URL + uri;
-				if(!isZip(uri)) {//压缩包不生成pdf路径
+				if (!isZip(uri)) {// 压缩包不生成pdf路径
 					this.pdfPath = OPEN_URL + id + "/" + id + ".pdf";
 				}
 			}
@@ -146,13 +157,13 @@ public final class FileUtil {
 			this.id = id;
 			if (!StringUtils.isEmpty(uri)) {
 				this.wordPath = OPEN_URL + uri;
-				if(!isZip(uri)) {//压缩包不生成pdf路径
+				if (!isZip(uri)) {// 压缩包不生成pdf路径
 					this.pdfPath = OPEN_URL + id + "/" + id + ".pdf";
 				}
 			}
 		}
 
-		public int getId() {
+		public long getId() {
 			return id;
 		}
 
@@ -174,11 +185,11 @@ public final class FileUtil {
 
 	}
 
-	public static boolean  isZip(String path) {
-		if(StringUtils.isEmpty(path)) {
+	public static boolean isZip(String path) {
+		if (StringUtils.isEmpty(path)) {
 			return true;
 		}
-		if(path.endsWith(".zip") ||path.endsWith(".rar")) {
+		if (path.endsWith(".zip") || path.endsWith(".rar")) {
 			return true;
 		}
 		return false;
@@ -212,12 +223,20 @@ public final class FileUtil {
 		}
 		return true;
 	}
-
-	public static boolean deleteFold(String id) {
-		if (null == id || id.isEmpty()) {
+	public static boolean deleteFold(BaseEstate baseEstate) {
+		if(!StringUtils.isEmpty(baseEstate.getWordUri())) {
+			deleteFold(getRandomFold(baseEstate.getWordUri()));//删除word和pdf
+		}
+		if(!StringUtils.isEmpty(baseEstate.getUpFileURI())) {//删除zip
+			deleteFold(getRandomFold(baseEstate.getUpFileURI()));
+		}
+		return true;
+	}
+	public static boolean deleteFold(String randomFold) {
+		if(StringUtils.isEmpty(randomFold)) {
 			return true;
 		}
-		File filePath = new File(ROOT_PATH + id + FILE_SEPARATOR);
+		File filePath = new File(ROOT_PATH + randomFold + FILE_SEPARATOR);
 		if (!filePath.exists()) {
 			return true;
 		}
@@ -231,6 +250,32 @@ public final class FileUtil {
 		return true;
 	}
 
+//	public static boolean deleteFold(String id) {
+//		if (null == id || id.isEmpty()) {
+//			return true;
+//		}
+//		File filePath = new File(ROOT_PATH + id + FILE_SEPARATOR);
+//		if (!filePath.exists()) {
+//			return true;
+//		}
+//		File[] files = filePath.listFiles();
+//		for (File file : files) {
+//			file.delete();
+//		}
+//		if (filePath.isDirectory() && filePath.list().length == 0) {
+//			filePath.delete();
+//		}
+//		return true;
+//	}
+
+	public static String getRandomFold(String path) {//根据路径获取随机数文件夹
+		if (StringUtils.isEmpty(path)) {
+			return null;
+		}
+		String result = path.substring(path.indexOf("open") + 5, path.lastIndexOf("/"));
+		return result;
+	}
+
 	public static String getFileName(String path) throws IOException {
 		String p = normalizer(path);
 		String fileName = new File(p).getName();
@@ -238,9 +283,7 @@ public final class FileUtil {
 	}
 
 	public static void main(String[] args) throws IOException {
-		System.out.println(
-				getFileName("F:\\soft_install\\eclipse2019\\eclipse-workspace\\report-approval\\target\\发啊啊.pdf"));
-		;
+		System.out.println(getRandomFold("http://fcpgpre.jstspg.com//rpt/open/1565783986359/顾研-材料.rar"));
 	}
 
 	public static String normalizer(String path) {
