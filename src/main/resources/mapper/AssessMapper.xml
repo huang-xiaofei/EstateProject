@@ -25,8 +25,8 @@
 		serviceSource=#{serviceSource},
 		assessOrg=#{assessOrg},
 		branchOffice=#{branchOffice},
-		<if test="upFileUri !=null and upFileUri !=''">
-			 upFileUri=#{upFileUri},
+		<if test="upFileURI !=null and upFileURI !=''">
+			 upFileUri=#{upFileURI},
 		</if>
 		<if test="wordUri !=null and wordUri !=''">
 			 wordUri=#{wordUri},
