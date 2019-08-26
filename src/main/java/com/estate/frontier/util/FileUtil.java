@@ -28,8 +28,9 @@ public final class FileUtil {
 	/**
 	 * 用于打开上传文件的路径
 	 */
-	public static final String OPEN_URL = "http://fcpgpre.jstspg.com//rpt/open/";
-
+	//public static final String OPEN_URL = "http://fcpgpre.jstspg.com//rpt/open/";
+//  http://bgsp.jstspg.com//rpt/open/1566743938913/1566743938913.pdf
+	public static final String OPEN_URL = "http://bgsp.jstspg.com//rpt/open/";//正式环境
 	public static String getUriNoSuffix(String uri) {
 		if (StringUtils.isEmpty(uri)) {
 			return null;
