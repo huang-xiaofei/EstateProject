@@ -26,13 +26,13 @@
 		assessOrg=#{assessOrg},
 		branchOffice=#{branchOffice},
 		<if test="upFileURI !=null and upFileURI !=''">
-			 upFileUri=#{upFileURI},
+			upFileUri=#{upFileURI},
 		</if>
 		<if test="wordUri !=null and wordUri !=''">
-			 wordUri=#{wordUri},
+			wordUri=#{wordUri},
 		</if>
 		<if test="pdfUri !=null and pdfUri !=''">
-			 pdfUri=#{pdfUri},
+			pdfUri=#{pdfUri},
 		</if>
 		<if test="checker !=null and checker !=''">
 			checker=#{checker},
@@ -56,8 +56,18 @@
 	</select>
 	<update id="updateUri">
 		UPDATE
-		assess_report SET
-		upFileURI =#{params.zipUri}
+		assess_report
+		<set>
+			<if test="params.pdfUri !=null and params.pdfUri !=''">
+				pdfUri=#{params.pdfUri},
+			</if>
+			<if test="params.zipUri !=null and params.zipUri !=''">
+				upFileURI =#{params.zipUri},
+			</if>
+			<if test="params.wordUri !=null and params.wordUri !=''">
+				wordUri =#{params.wordUri}
+			</if>
+		</set>
 		WHERE
 		id=#{params.id}
 	</update>

@@ -238,10 +238,10 @@ public class IndexController {
 		return JSON.toJSONString(result);
 	}
 
-	@RequestMapping(value = "/updateZipUri", method = RequestMethod.POST)
-	@ApiOperation(value = "更新上传zip文件的uri", notes = "字段{reportType:1,id:22,zipUri:'D://test/a.zip'}")
+	@RequestMapping(value = "/updateUri", method = RequestMethod.POST)
+	@ApiOperation(value = "更新上传zip文件的uri", notes = "字段{reportType:1,id:22,zipUri:'D://test/a.zip',pdfUri:'',wordUri:''}")
 	@ResponseBody
-	public ResultModel updateZipUri(Map<String, String> params) {
+	public ResultModel updateUri(@RequestBody Map<String, String> params) {
 		return indexService.updateZipUri(params);
 	}
 
@@ -249,8 +249,10 @@ public class IndexController {
 	@ApiOperation(value = "上传文件", notes = "上传文件")
 	@ResponseBody
 	public String upLoad(@RequestParam("file") List<MultipartFile> file) {
-		// log.info("执行upLoad,文件名:{},id:{}", file.getOriginalFilename() == null ? "null"
-		// : file.getOriginalFilename(), id);
+		for (MultipartFile multipartFile : file) {
+			log.info("upLoad："+file.size());
+			log.info("upLoad："+multipartFile.getOriginalFilename());
+		}
 		if (file == null || file.isEmpty()) {
 			return JSON.toJSONString(ResultFactory.newResultModel(EnumField.fail, "无文件传入！"));
 		}

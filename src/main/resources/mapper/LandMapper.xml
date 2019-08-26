@@ -36,8 +36,10 @@
 		#{partReporter2},
 		#{partReporter2RgNum},#{serviceSource},
 		#{serviceCharge}, #{checker},#{assessOrg}
-		, #{wordUri},#{pdfUri},#{firstReporterRgNum}
-		, #{clientAddr},#{quarter},#{pl});
+		,
+		#{wordUri},#{pdfUri},#{firstReporterRgNum}
+		,
+		#{clientAddr},#{quarter},#{pl});
 	</insert>
 	<update id="update"
 		parameterType="com.estate.frontier.model.LandInfo">
@@ -62,10 +64,10 @@
 		assessOrg=#{assessOrg},firstReporterRgNum=#{firstReporterRgNum},
 		clientAddr=#{clientAddr},quarter=#{quarter},pl=#{pl},
 		<if test="wordUri !=null and wordUri !=''">
-			 wordUri=#{wordUri},
+			wordUri=#{wordUri},
 		</if>
 		<if test="pdfUri !=null and pdfUri !=''">
-			 pdfUri=#{pdfUri},
+			pdfUri=#{pdfUri},
 		</if>
 		<if test="checker !=null and checker !=''">
 			checker=#{checker},
@@ -76,7 +78,8 @@
 	</update>
 	<delete id="delete" parameterType="int">
 		DELETE from
-		land_report WHERE id = #{id}
+		land_report WHERE
+		id = #{id}
 	</delete>
 	<select id="get" parameterType="int"
 		resultType="com.estate.frontier.model.LandInfo">
@@ -88,13 +91,24 @@
 		partReporter2RgNum, serviceSource, serviceCharge, checker,
 		assessOrg,wordUri,pdfUri,firstReporterRgNum,
 		clientAddr,quarter,pl
-		FROM land_report
+		FROM
+		land_report
 		where id=#{id}
 	</select>
 	<update id="updateUri">
 		UPDATE
-		land_report SET
-		upFileURI =#{params.zipUri}
+		land_report
+		<set>
+			<if test="params.pdfUri !=null and params.pdfUri !=''">
+				pdfUri=#{params.pdfUri},
+			</if>
+			<if test="params.zipUri !=null and params.zipUri !=''">
+				upFileURI =#{params.zipUri},
+			</if>
+			<if test="params.wordUri !=null and params.wordUri !=''">
+				wordUri =#{params.wordUri}
+			</if>
+		</set>
 		WHERE
 		id=#{params.id}
 	</update>

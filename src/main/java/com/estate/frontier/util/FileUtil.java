@@ -63,8 +63,9 @@ public final class FileUtil {
 			return null;
 		}
 		String fileName = file.getOriginalFilename();
+		
 		fileName = FileUtil.getFileName(fileName);
-		log.debug("保存文件的原始文件名:{},处理后的文件名为:{}", file.getOriginalFilename() == null ? "null" : file.getOriginalFilename(),
+		log.info("保存文件的原始文件名:{},处理后的文件名为:{}", file.getOriginalFilename() == null ? "null" : file.getOriginalFilename(),
 				fileName);
 		// 拼接uri
 		// String upURI = getUri(base, fileName);
@@ -106,9 +107,15 @@ public final class FileUtil {
 	}
 
 	private static String getUri(String fileName, long random) {
+		
 		StringBuilder uri = new StringBuilder();
 		uri.append(random).append(FileUtil.FILE_SEPARATOR);
-		uri.append(fileName);
+		if(!fileName.contains(".")) {
+			uri.append(random);
+			uri.append(".pdf");
+		}else{
+			uri.append(fileName);
+		}
 		return uri.toString();
 	}
 

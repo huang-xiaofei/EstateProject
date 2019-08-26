@@ -10,7 +10,7 @@ package com.estate.frontier.model.constant;
 public enum EnumField {
 
 	upLoadFail("400", "上传文件失败"), saveEstateFail("401", "保存报告信息失败"), nullObject("500", "传入数据为空或格式不对"),
-	sucess("200", "执行成功"), fail("500", "执行失败");
+	sucess("200", "execute sucess"), fail("500", "execute failed");
 	private String key;
 	private String value;
 
