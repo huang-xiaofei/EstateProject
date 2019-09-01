@@ -2096,3 +2096,271 @@
 2019-08-14 22:05:55,787 INFO [StartupInfoLogger:57] Started MainApplation in 15.179 seconds (JVM running for 16.372)
 2019-08-14 22:05:58,740 INFO [DirectJDKLog:179] Initializing Spring FrameworkServlet 'dispatcherServlet'
 2019-08-14 22:05:58,979 INFO [IndexController:198] 获取的参数为={"branchOffice":"","reportType":"1","assessAim":"","starTime":"","endTime":"2019-08-14 19:59:50"}
+2019-08-20 15:42:56,271 INFO [StartupInfoLogger:48] Starting MainApplation on lenovo-PC with PID 5136 (F:\soft_install\eclipse2019\eclipse-workspace\report-approval\target\classes started by lenovo in F:\soft_install\eclipse2019\eclipse-workspace\report-approval)
+2019-08-20 15:42:56,303 INFO [SpringApplication:593] No active profile set, falling back to default profiles: default
+2019-08-20 15:42:57,457 INFO [Version:30] HV000001: Hibernate Validator 5.3.6.Final
+2019-08-20 15:43:02,497 WARN [ClassPathMapperScanner:239] Skipping MapperFactoryBean with name 'baseInterface' and 'com.estate.frontier.mapper.base.BaseInterface' mapperInterface. Bean already defined with the same name!
+2019-08-20 15:43:02,497 WARN [ClassPathMapperScanner:166] No MyBatis mapper was found in '[com.estate.frontier.mapper.*, com.gitee.sunchenbin.mybatis.actable.dao.*]' package. Please check your configuration.
+2019-08-20 15:43:02,497 WARN [ConfigurationClassPostProcessor:373] Cannot enhance @Configuration bean definition 'myBatisMapperScannerConfig' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2019-08-20 15:43:07,806 INFO [DirectJDKLog:179] Starting service [Tomcat]
+2019-08-20 15:43:07,806 INFO [DirectJDKLog:179] Starting Servlet Engine: Apache Tomcat/8.5.23
+2019-08-20 15:43:08,208 INFO [DirectJDKLog:179] Initializing Spring embedded WebApplicationContext
+2019-08-20 15:43:15,357 INFO [DocumentationPluginsBootstrapper:80] Context refreshed
+2019-08-20 15:43:15,444 INFO [DocumentationPluginsBootstrapper:83] Found {0} custom documentation plugin(s)
+2019-08-20 15:43:15,459 INFO [ApiListingReferenceScanner:53] Scanning for api listing references
+2019-08-20 15:43:15,475 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method downLoad was fileuploadcontroller
+2019-08-20 15:43:15,475 INFO [ApiListingReferenceScanner:72] Request mapping: downLoad belongs to groups: [[ResourceGroup{groupName='fileuploadcontroller', position=0, controller=com.estate.frontier.controller.FileUpLoadController}]] 
+2019-08-20 15:43:15,475 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method fileUpload was fileuploadcontroller
+2019-08-20 15:43:15,475 INFO [ApiListingReferenceScanner:72] Request mapping: fileUpload belongs to groups: [[ResourceGroup{groupName='fileuploadcontroller', position=0, controller=com.estate.frontier.controller.FileUpLoadController}]] 
+2019-08-20 15:43:15,475 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,475 INFO [ApiListingReferenceScanner:72] Request mapping: file belongs to groups: [[ResourceGroup{groupName='fileuploadcontroller', position=0, controller=com.estate.frontier.controller.FileUpLoadController}]] 
+2019-08-20 15:43:15,490 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method multiUpload was fileuploadcontroller
+2019-08-20 15:43:15,490 INFO [ApiListingReferenceScanner:72] Request mapping: multiUpload belongs to groups: [[ResourceGroup{groupName='fileuploadcontroller', position=0, controller=com.estate.frontier.controller.FileUpLoadController}]] 
+2019-08-20 15:43:15,490 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method deleteEstate was indexcontroller
+2019-08-20 15:43:15,490 INFO [ApiListingReferenceScanner:72] Request mapping: deleteEstate belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,490 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method downLoad was indexcontroller
+2019-08-20 15:43:15,490 INFO [ApiListingReferenceScanner:72] Request mapping: downLoad belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,490 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getCheckReportsByConditions was indexcontroller
+2019-08-20 15:43:15,490 INFO [ApiListingReferenceScanner:72] Request mapping: getCheckReportsByConditions belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,490 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getReportsByStates was indexcontroller
+2019-08-20 15:43:15,490 INFO [ApiListingReferenceScanner:72] Request mapping: getReportsByStates belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,490 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getDetailReport was indexcontroller
+2019-08-20 15:43:15,490 INFO [ApiListingReferenceScanner:72] Request mapping: getDetailReport belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,490 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getReportsByConditions was indexcontroller
+2019-08-20 15:43:15,490 INFO [ApiListingReferenceScanner:72] Request mapping: getReportsByConditions belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,490 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getStaticsList was indexcontroller
+2019-08-20 15:43:15,490 INFO [ApiListingReferenceScanner:72] Request mapping: getStaticsList belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,490 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method saveRptOrFile was indexcontroller
+2019-08-20 15:43:15,490 INFO [ApiListingReferenceScanner:72] Request mapping: saveRptOrFile belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,490 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method saveRpt was indexcontroller
+2019-08-20 15:43:15,490 INFO [ApiListingReferenceScanner:72] Request mapping: saveRpt belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,506 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method Test was indexcontroller
+2019-08-20 15:43:15,506 INFO [ApiListingReferenceScanner:72] Request mapping: Test belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,506 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method transferTo was indexcontroller
+2019-08-20 15:43:15,506 INFO [ApiListingReferenceScanner:72] Request mapping: transferTo belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,506 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method upLoad was indexcontroller
+2019-08-20 15:43:15,506 INFO [ApiListingReferenceScanner:72] Request mapping: upLoad belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,506 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateRemarkOrStampState was indexcontroller
+2019-08-20 15:43:15,506 INFO [ApiListingReferenceScanner:72] Request mapping: updateRemarkOrStampState belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,506 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateRptState was indexcontroller
+2019-08-20 15:43:15,506 INFO [ApiListingReferenceScanner:72] Request mapping: updateRptState belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,506 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateRpt was indexcontroller
+2019-08-20 15:43:15,506 INFO [ApiListingReferenceScanner:72] Request mapping: updateRpt belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,506 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateZipUri was indexcontroller
+2019-08-20 15:43:15,506 INFO [ApiListingReferenceScanner:72] Request mapping: updateZipUri belongs to groups: [[ResourceGroup{groupName='indexcontroller', position=0, controller=com.estate.frontier.controller.IndexController}]] 
+2019-08-20 15:43:15,522 INFO [ApiListingReferenceScanner:84] Created resource listing Path: /default/indexcontroller Description: indexcontroller Position: 0
+2019-08-20 15:43:15,522 INFO [ApiListingReferenceScanner:84] Created resource listing Path: /default/fileuploadcontroller Description: fileuploadcontroller Position: 0
+2019-08-20 15:43:15,584 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,584 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:15,584 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,600 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:15,615 INFO [OperationsKeyGenerator:51] Cache key generated: /fileController/download.com.estate.frontier.controller.FileUpLoadController.downLoad.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,615 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /fileController/download.com.estate.frontier.controller.FileUpLoadController.downLoad.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,646 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method downLoad was fileuploadcontroller
+2019-08-20 15:43:15,662 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method downLoad was fileuploadcontroller
+2019-08-20 15:43:15,678 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,678 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:15,678 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,678 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:15,678 INFO [OperationsKeyGenerator:51] Cache key generated: /fileController/file.com.estate.frontier.controller.FileUpLoadController.file.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,678 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /fileController/file.com.estate.frontier.controller.FileUpLoadController.file.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,693 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,693 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,693 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,693 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,693 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,693 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,693 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,693 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,709 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,709 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,709 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,709 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,709 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,709 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,709 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,724 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method file was fileuploadcontroller
+2019-08-20 15:43:15,724 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,724 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:15,724 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,724 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:15,724 INFO [OperationsKeyGenerator:51] Cache key generated: /fileController/fileUpload.com.estate.frontier.controller.FileUpLoadController.fileUpload.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,724 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /fileController/fileUpload.com.estate.frontier.controller.FileUpLoadController.fileUpload.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,740 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method fileUpload was fileuploadcontroller
+2019-08-20 15:43:15,740 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method fileUpload was fileuploadcontroller
+2019-08-20 15:43:15,756 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,756 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:15,756 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,756 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:15,756 INFO [OperationsKeyGenerator:51] Cache key generated: /fileController/multiUpload.com.estate.frontier.controller.FileUpLoadController.multiUpload.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,756 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /fileController/multiUpload.com.estate.frontier.controller.FileUpLoadController.multiUpload.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,756 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method multiUpload was fileuploadcontroller
+2019-08-20 15:43:15,756 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method multiUpload was fileuploadcontroller
+2019-08-20 15:43:15,802 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,802 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:15,818 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,818 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:15,818 INFO [ModelContextKeyGenerator:46] Cache Key Generated: org.springframework.web.multipart.MultipartFile(false)
+2019-08-20 15:43:15,818 INFO [CachingAspect:79] Caching aspect applied for cache models with key org.springframework.web.multipart.MultipartFile(false)
+2019-08-20 15:43:15,818 INFO [ModelPropertiesKeyGenerator:48] Cache key generated: org.springframework.web.multipart.MultipartFile(false)
+2019-08-20 15:43:15,818 INFO [CachingAspect:68] Caching aspect applied for cache modelProperties with key org.springframework.web.multipart.MultipartFile(false)
+2019-08-20 15:43:15,865 INFO [ModelContextKeyGenerator:46] Cache Key Generated: org.springframework.web.multipart.MultipartFile(false)
+2019-08-20 15:43:15,865 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key org.springframework.web.multipart.MultipartFile(false)
+2019-08-20 15:43:15,865 INFO [ModelPropertiesKeyGenerator:48] Cache key generated: org.springframework.web.multipart.MultipartFile(false)
+2019-08-20 15:43:15,865 INFO [CachingAspect:68] Caching aspect applied for cache modelProperties with key org.springframework.web.multipart.MultipartFile(false)
+2019-08-20 15:43:15,865 INFO [OperationsKeyGenerator:51] Cache key generated: /index/test.com.estate.frontier.controller.IndexController.Test.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,865 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/test.com.estate.frontier.controller.IndexController.Test.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,865 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method Test was indexcontroller
+2019-08-20 15:43:15,880 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method Test was indexcontroller
+2019-08-20 15:43:15,896 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,896 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:15,896 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,896 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:15,896 INFO [OperationsKeyGenerator:51] Cache key generated: /index/delete.com.estate.frontier.controller.IndexController.deleteEstate.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,896 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/delete.com.estate.frontier.controller.IndexController.deleteEstate.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,912 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method deleteEstate was indexcontroller
+2019-08-20 15:43:15,927 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method deleteEstate was indexcontroller
+2019-08-20 15:43:15,927 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,927 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:15,943 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,943 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:15,943 INFO [OperationsKeyGenerator:51] Cache key generated: /index/download.com.estate.frontier.controller.IndexController.downLoad.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,943 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/download.com.estate.frontier.controller.IndexController.downLoad.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,943 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method downLoad was indexcontroller
+2019-08-20 15:43:15,943 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method downLoad was indexcontroller
+2019-08-20 15:43:15,958 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,958 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:15,958 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,958 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:15,958 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.Object(false)
+2019-08-20 15:43:15,958 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.Object(false)
+2019-08-20 15:43:15,958 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.Object(false)
+2019-08-20 15:43:15,958 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.Object(false)
+2019-08-20 15:43:15,958 INFO [OperationsKeyGenerator:51] Cache key generated: /index/getCheckReports.com.estate.frontier.controller.IndexController.getCheckReportsByConditions.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,958 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/getCheckReports.com.estate.frontier.controller.IndexController.getCheckReportsByConditions.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,974 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getCheckReportsByConditions was indexcontroller
+2019-08-20 15:43:15,974 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getCheckReportsByConditions was indexcontroller
+2019-08-20 15:43:15,974 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,974 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:15,974 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:15,974 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:15,974 INFO [OperationsKeyGenerator:51] Cache key generated: /index/getReportsDetail.com.estate.frontier.controller.IndexController.getDetailReport.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,974 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/getReportsDetail.com.estate.frontier.controller.IndexController.getDetailReport.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:15,990 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getDetailReport was indexcontroller
+2019-08-20 15:43:15,990 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getDetailReport was indexcontroller
+2019-08-20 15:43:16,005 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,005 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:16,005 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,005 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:16,005 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.Object(false)
+2019-08-20 15:43:16,005 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.Object(false)
+2019-08-20 15:43:16,005 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.Object(false)
+2019-08-20 15:43:16,005 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.Object(false)
+2019-08-20 15:43:16,005 INFO [OperationsKeyGenerator:51] Cache key generated: /index/getReports.com.estate.frontier.controller.IndexController.getReportsByConditions.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,005 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/getReports.com.estate.frontier.controller.IndexController.getReportsByConditions.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,005 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getReportsByConditions was indexcontroller
+2019-08-20 15:43:16,021 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getReportsByConditions was indexcontroller
+2019-08-20 15:43:16,021 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,021 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:16,021 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,021 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:16,021 INFO [OperationsKeyGenerator:51] Cache key generated: /index/getReportsByStates.com.estate.frontier.controller.IndexController.getReportsByStates.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,021 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/getReportsByStates.com.estate.frontier.controller.IndexController.getReportsByStates.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,021 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getReportsByStates was indexcontroller
+2019-08-20 15:43:16,036 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getReportsByStates was indexcontroller
+2019-08-20 15:43:16,036 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,036 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:16,036 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,036 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:16,036 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.Object(false)
+2019-08-20 15:43:16,036 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.Object(false)
+2019-08-20 15:43:16,036 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.Object(false)
+2019-08-20 15:43:16,036 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.Object(false)
+2019-08-20 15:43:16,036 INFO [OperationsKeyGenerator:51] Cache key generated: /index/getStaticsList.com.estate.frontier.controller.IndexController.getStaticsList.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,036 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/getStaticsList.com.estate.frontier.controller.IndexController.getStaticsList.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,052 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getStaticsList was indexcontroller
+2019-08-20 15:43:16,052 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method getStaticsList was indexcontroller
+2019-08-20 15:43:16,068 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(false)
+2019-08-20 15:43:16,068 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(false)
+2019-08-20 15:43:16,068 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(false)
+2019-08-20 15:43:16,068 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(false)
+2019-08-20 15:43:16,068 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,068 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:16,068 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,068 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:16,068 INFO [OperationsKeyGenerator:51] Cache key generated: /index/saveRpt.com.estate.frontier.controller.IndexController.saveRpt.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,068 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/saveRpt.com.estate.frontier.controller.IndexController.saveRpt.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,068 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method saveRpt was indexcontroller
+2019-08-20 15:43:16,083 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method saveRpt was indexcontroller
+2019-08-20 15:43:16,083 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,083 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:16,083 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,083 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:16,083 INFO [OperationsKeyGenerator:51] Cache key generated: /index/saveRptOrFile.com.estate.frontier.controller.IndexController.saveRptOrFile.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,083 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/saveRptOrFile.com.estate.frontier.controller.IndexController.saveRptOrFile.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,083 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method saveRptOrFile was indexcontroller
+2019-08-20 15:43:16,083 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method saveRptOrFile was indexcontroller
+2019-08-20 15:43:16,099 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,099 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:16,099 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,099 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:16,099 INFO [OperationsKeyGenerator:51] Cache key generated: /index/transferTo.com.estate.frontier.controller.IndexController.transferTo.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,099 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/transferTo.com.estate.frontier.controller.IndexController.transferTo.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,099 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method transferTo was indexcontroller
+2019-08-20 15:43:16,114 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method transferTo was indexcontroller
+2019-08-20 15:43:16,114 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,114 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:16,114 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,114 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:16,114 INFO [OperationsKeyGenerator:51] Cache key generated: /index/upLoad.com.estate.frontier.controller.IndexController.upLoad.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,114 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/upLoad.com.estate.frontier.controller.IndexController.upLoad.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,114 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method upLoad was indexcontroller
+2019-08-20 15:43:16,130 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method upLoad was indexcontroller
+2019-08-20 15:43:16,130 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,130 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:16,130 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,130 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:16,130 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.Object(false)
+2019-08-20 15:43:16,130 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.Object(false)
+2019-08-20 15:43:16,130 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.Object(false)
+2019-08-20 15:43:16,146 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.Object(false)
+2019-08-20 15:43:16,146 INFO [OperationsKeyGenerator:51] Cache key generated: /index/updateRemarkOrStampState.com.estate.frontier.controller.IndexController.updateRemarkOrStampState.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,146 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/updateRemarkOrStampState.com.estate.frontier.controller.IndexController.updateRemarkOrStampState.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,146 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateRemarkOrStampState was indexcontroller
+2019-08-20 15:43:16,161 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateRemarkOrStampState was indexcontroller
+2019-08-20 15:43:16,161 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(false)
+2019-08-20 15:43:16,161 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(false)
+2019-08-20 15:43:16,161 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(false)
+2019-08-20 15:43:16,161 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(false)
+2019-08-20 15:43:16,161 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,161 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:16,161 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,161 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:16,161 INFO [OperationsKeyGenerator:51] Cache key generated: /index/updateRpt.com.estate.frontier.controller.IndexController.updateRpt.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,161 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/updateRpt.com.estate.frontier.controller.IndexController.updateRpt.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,161 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateRpt was indexcontroller
+2019-08-20 15:43:16,177 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateRpt was indexcontroller
+2019-08-20 15:43:16,177 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,177 INFO [CachingAspect:79] Caching aspect applied for cache models with key java.lang.String(true)
+2019-08-20 15:43:16,177 INFO [ModelContextKeyGenerator:46] Cache Key Generated: java.lang.String(true)
+2019-08-20 15:43:16,177 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key java.lang.String(true)
+2019-08-20 15:43:16,177 INFO [OperationsKeyGenerator:51] Cache key generated: /index/updateRptState.com.estate.frontier.controller.IndexController.updateRptState.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,177 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/updateRptState.com.estate.frontier.controller.IndexController.updateRptState.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,192 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateRptState was indexcontroller
+2019-08-20 15:43:16,192 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateRptState was indexcontroller
+2019-08-20 15:43:16,192 INFO [ModelContextKeyGenerator:46] Cache Key Generated: com.estate.frontier.model.factory.ResultModel(true)
+2019-08-20 15:43:16,192 INFO [CachingAspect:79] Caching aspect applied for cache models with key com.estate.frontier.model.factory.ResultModel(true)
+2019-08-20 15:43:16,192 INFO [ModelPropertiesKeyGenerator:48] Cache key generated: com.estate.frontier.model.factory.ResultModel(true)
+2019-08-20 15:43:16,192 INFO [CachingAspect:68] Caching aspect applied for cache modelProperties with key com.estate.frontier.model.factory.ResultModel(true)
+2019-08-20 15:43:16,224 INFO [ModelContextKeyGenerator:46] Cache Key Generated: com.estate.frontier.model.factory.ResultModel(true)
+2019-08-20 15:43:16,224 INFO [CachingAspect:79] Caching aspect applied for cache modelDependencies with key com.estate.frontier.model.factory.ResultModel(true)
+2019-08-20 15:43:16,224 INFO [ModelPropertiesKeyGenerator:48] Cache key generated: com.estate.frontier.model.factory.ResultModel(true)
+2019-08-20 15:43:16,224 INFO [CachingAspect:68] Caching aspect applied for cache modelProperties with key com.estate.frontier.model.factory.ResultModel(true)
+2019-08-20 15:43:16,224 INFO [OperationsKeyGenerator:51] Cache key generated: /index/updateZipUri.com.estate.frontier.controller.IndexController.updateZipUri.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,224 INFO [CachingAspect:68] Caching aspect applied for cache operations with key /index/updateZipUri.com.estate.frontier.controller.IndexController.updateZipUri.DefaultGenericTypeNamingStrategy
+2019-08-20 15:43:16,239 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateZipUri was indexcontroller
+2019-08-20 15:43:16,239 INFO [ClassOrApiAnnotationResourceGrouping$1:100] Group for method updateZipUri was indexcontroller
+2019-08-20 15:43:16,317 INFO [DirectJDKLog:179] Initializing ProtocolHandler ["http-nio-9090"]
+2019-08-20 15:43:16,380 INFO [DirectJDKLog:179] Starting ProtocolHandler ["http-nio-9090"]
+2019-08-20 15:43:16,426 INFO [DirectJDKLog:179] Using a shared selector for servlet write/read
+2019-08-20 15:43:16,521 INFO [StartupInfoLogger:57] Started MainApplation in 22.168 seconds (JVM running for 24.884)
