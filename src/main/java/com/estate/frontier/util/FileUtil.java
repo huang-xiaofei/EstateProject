@@ -28,10 +28,10 @@ public final class FileUtil {
 	/**
 	 * 用于打开上传文件的路径
 	 */
-	// public static final String OPEN_URL = "http://fcpgpre.jstspg.com//rpt/open/";
+	 public static final String OPEN_URL = "http://fcpgpre.jstspg.com//rpt/open/";
 
 //  http://bgsp.jstspg.com//rpt/open/1566743938913/1566743938913.pdf
-	public static final String OPEN_URL = "http://bgsp.jstspg.com//rpt/open/";// 正式环境
+	//public static final String OPEN_URL = "http://bgsp.jstspg.com//rpt/open/";// 正式环境
 
 	public static String getUriNoSuffix(String uri) {
 		if (StringUtils.isEmpty(uri)) {
@@ -113,7 +113,7 @@ public final class FileUtil {
 
 		StringBuilder uri = new StringBuilder();
 		uri.append(random).append(FileUtil.FILE_SEPARATOR);
-		if (!fileName.contains(".")) {
+		if (!fileName.contains(".") ||fileName.endsWith(".pdf")) {//临时文件和pdf文件，文件都重命名
 			uri.append(random);
 			uri.append(".pdf");
 		} else {
@@ -191,6 +191,10 @@ public final class FileUtil {
 
 		public String getPdfPath() {
 			return pdfPath;
+		}
+
+		public void setWordPath(String wordPath) {
+			this.wordPath = wordPath;
 		}
 
 	}

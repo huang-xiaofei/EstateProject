@@ -278,6 +278,7 @@ public class IndexController {
 		}
 		for (FileResult r : results) {
 			if(r.getWordPath().endsWith(".pdf")) {
+				r.setWordPath("");//pdf文件无word路径
 				continue;
 			}
 			if (!FileUtil.isZip(r.getWordPath())) {
