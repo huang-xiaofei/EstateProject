@@ -24,7 +24,7 @@
 		serviceSource,
 		branchOffice,
 		serviceCharge, checker, assessOrg,
-		reportType,wordUri,pdfUri,firstReporterRgNum,upFileURI)
+		reportType,wordUri,pdfUri,firstReporterRgNum,upFileURI,propertyOwner)
 		VALUES(#{id},#{projectName}, #{assessReportNum},
 		#{assessStartTime},
 		#{assessEndTime}, #{assessObject}, #{valueTime},
@@ -41,7 +41,7 @@
 		#{partReporter2RgNum},#{serviceSource},#{branchOffice},
 		#{serviceCharge}, #{checker},#{assessOrg}, #{reportType}
 		,#{wordUri},
-		#{pdfUri}, #{firstReporterRgNum},#{upFileURI});
+		#{pdfUri}, #{firstReporterRgNum},#{upFileURI},#{propertyOwner});
 	</insert>
 	<update id="update"
 		parameterType="com.estate.frontier.model.RealEstateInfo">
@@ -61,7 +61,7 @@
 		branchOffice=#{branchOffice},serviceCharge=#{serviceCharge},
 		assessOrg=#{assessOrg},
 		reportType=#{reportType},
-		firstReporterRgNum=#{firstReporterRgNum},
+		firstReporterRgNum=#{firstReporterRgNum},propertyOwner=#{propertyOwner},
 		<if test="wordUri !=null and wordUri !=''">
 			wordUri=#{wordUri},
 		</if>
@@ -94,7 +94,8 @@
 		partReporter2, partReporter2RgNum,
 		serviceSource, branchOffice,
 		serviceCharge, checker, assessOrg,
-		reportType ,wordUri,pdfUri,firstReporterRgNum,upFileURI from real_estate
+		reportType ,wordUri,pdfUri,firstReporterRgNum,upFileURI ,propertyOwner
+		from real_estate
 		where
 		id=#{id}
 	</select>

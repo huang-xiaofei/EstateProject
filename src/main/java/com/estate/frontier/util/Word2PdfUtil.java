@@ -34,7 +34,7 @@ public class Word2PdfUtil {
 
 	public static void main(String[] args) {
 		//doc2pdf("F:\\soft_install\\eclipse2019\\eclipse-workspace\\report-approval\\target\\gy.doc");
-		doc2pdf(new FileResult("kk", "F:\\soft_install\\eclipse2019\\eclipse-workspace\\report-approval\\target\\mybatis.docx", 10));
+		doc2pdf("C:\\Users\\lenovo\\Desktop\\mybatis源码.docx");
 	}
 
 	public static boolean doc2pdf(String wordPath) {

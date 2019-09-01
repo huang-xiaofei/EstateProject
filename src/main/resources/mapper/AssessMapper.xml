@@ -9,13 +9,16 @@
 		(id,applicationNum,
 		serviceSource, checker, assessOrg,
 		branchOffice,
-		upFileURI,reportType,wordUri,pdfUri)
+		upFileURI,reportType,wordUri,pdfUri,
+		propertyOwner,projectName,
+		assessAim,buildingArea,assessTotalPrice)
 		VALUES
 		(#{id},#{applicationNum},#{serviceSource},
 		#{checker},
 		#{assessOrg},
 		#{branchOffice},
-		#{upFileURI},#{reportType},#{wordUri},#{pdfUri});
+		#{upFileURI},#{reportType},#{wordUri},#{pdfUri},
+		#{propertyOwner},#{projectName},#{assessAim},#{buildingArea},#{assessTotalPrice});
 	</insert>
 	<update id="update"
 		parameterType="com.estate.frontier.model.AssessInfo">
@@ -25,6 +28,10 @@
 		serviceSource=#{serviceSource},
 		assessOrg=#{assessOrg},
 		branchOffice=#{branchOffice},
+		propertyOwner=#{propertyOwner},
+		projectName=#{projectName},assessAim=#{assessAim},
+		buildingArea=#{buildingArea},
+		assessTotalPrice=#{assessTotalPrice},
 		<if test="upFileURI !=null and upFileURI !=''">
 			upFileUri=#{upFileURI},
 		</if>
@@ -49,7 +56,8 @@
 	<select id="get" parameterType="int"
 		resultType="com.estate.frontier.model.AssessInfo">
 		SELECT id, applicationNum, serviceSource, checker,
-		assessOrg, branchOffice, upFileUri,wordUri,pdfUri,reportType
+		assessOrg, branchOffice, upFileUri,wordUri,pdfUri,reportType,
+		propertyOwner,projectName,assessAim,buildingArea,assessTotalPrice
 		FROM
 		assess_report
 		where id=#{id}

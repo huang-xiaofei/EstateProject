@@ -28,9 +28,11 @@ public final class FileUtil {
 	/**
 	 * 用于打开上传文件的路径
 	 */
-	//public static final String OPEN_URL = "http://fcpgpre.jstspg.com//rpt/open/";
+	// public static final String OPEN_URL = "http://fcpgpre.jstspg.com//rpt/open/";
+
 //  http://bgsp.jstspg.com//rpt/open/1566743938913/1566743938913.pdf
-	public static final String OPEN_URL = "http://bgsp.jstspg.com//rpt/open/";//正式环境
+	public static final String OPEN_URL = "http://bgsp.jstspg.com//rpt/open/";// 正式环境
+
 	public static String getUriNoSuffix(String uri) {
 		if (StringUtils.isEmpty(uri)) {
 			return null;
@@ -64,7 +66,7 @@ public final class FileUtil {
 			return null;
 		}
 		String fileName = file.getOriginalFilename();
-		
+
 		fileName = FileUtil.getFileName(fileName);
 		log.info("保存文件的原始文件名:{},处理后的文件名为:{}", file.getOriginalFilename() == null ? "null" : file.getOriginalFilename(),
 				fileName);
@@ -76,7 +78,7 @@ public final class FileUtil {
 
 		String abPath = "";
 		try {
-			abPath = FileUtil.upLoadFile(file, upURI);
+			abPath = FileUtil.upLoadFile(file, upURI);// 服务器上的真实路径
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -108,13 +110,13 @@ public final class FileUtil {
 	}
 
 	private static String getUri(String fileName, long random) {
-		
+
 		StringBuilder uri = new StringBuilder();
 		uri.append(random).append(FileUtil.FILE_SEPARATOR);
-		if(!fileName.contains(".")) {
+		if (!fileName.contains(".")) {
 			uri.append(random);
 			uri.append(".pdf");
-		}else{
+		} else {
 			uri.append(fileName);
 		}
 		return uri.toString();
@@ -204,8 +206,9 @@ public final class FileUtil {
 	}
 
 	public static String upLoadFile(MultipartFile file, String upURI) throws Exception {
-		int size = (int) file.getSize();
-		System.out.println(upURI + "-->" + size);
+//		int size = (int) file.getSize();
+//		System.out.println(upURI + "-->" + size);
+
 		File dest = new File(ROOT_PATH + upURI);
 		log.info("保存文件的目的地为:{}", dest.toString());
 		if (!dest.getParentFile().exists()) {
@@ -231,17 +234,19 @@ public final class FileUtil {
 		}
 		return true;
 	}
+
 	public static boolean deleteFold(BaseEstate baseEstate) {
-		if(!StringUtils.isEmpty(baseEstate.getWordUri())) {
-			deleteFold(getRandomFold(baseEstate.getWordUri()));//删除word和pdf
+		if (!StringUtils.isEmpty(baseEstate.getWordUri())) {
+			deleteFold(getRandomFold(baseEstate.getWordUri()));// 删除word和pdf
 		}
-		if(!StringUtils.isEmpty(baseEstate.getUpFileURI())) {//删除zip
+		if (!StringUtils.isEmpty(baseEstate.getUpFileURI())) {// 删除zip
 			deleteFold(getRandomFold(baseEstate.getUpFileURI()));
 		}
 		return true;
 	}
+
 	public static boolean deleteFold(String randomFold) {
-		if(StringUtils.isEmpty(randomFold)) {
+		if (StringUtils.isEmpty(randomFold)) {
 			return true;
 		}
 		File filePath = new File(ROOT_PATH + randomFold + FILE_SEPARATOR);
@@ -276,7 +281,7 @@ public final class FileUtil {
 //		return true;
 //	}
 
-	public static String getRandomFold(String path) {//根据路径获取随机数文件夹
+	public static String getRandomFold(String path) {// 根据路径获取随机数文件夹
 		if (StringUtils.isEmpty(path)) {
 			return null;
 		}

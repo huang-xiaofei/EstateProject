@@ -17,7 +17,7 @@
 		assessResult, assessDate, assetsReportDate,
 		actualFee, assetsFee,
 		noAssetsFee, debtFee, noDebtFee, netAssets,
-		noNetAssets,wordUri,pdfUri,checker,assessObj,client)
+		noNetAssets,wordUri,pdfUri,checker,assessObj,client,propertyOwner)
 		VALUES
 		(#{id},#{projectName},
 		#{assessReportNum},
@@ -33,7 +33,7 @@
 		#{assetsReportDate},#{actualFee},#{assetsFee},
 		#{noAssetsFee},#{debtFee},#{noDebtFee},
 		#{netAssets},#{noNetAssets},
-		#{wordUri},#{pdfUri},#{checker},#{assessObj},#{client});
+		#{wordUri},#{pdfUri},#{checker},#{assessObj},#{client},#{propertyOwner});
 	</insert>
 	<update id="update"
 		parameterType="com.estate.frontier.model.AssetsInfo">
@@ -63,6 +63,7 @@
 		actualFee=#{actualFee},assetsFee=#{assetsFee},
 		noAssetsFee=#{noAssetsFee},debtFee=#{debtFee},noDebtFee=#{noDebtFee},
 		netAssets=#{netAssets},noNetAssets=#{noNetAssets},client=#{client},
+		propertyOwner=#{propertyOwner},
 		<if test="wordUri !=null and wordUri !=''">
 			wordUri=#{wordUri},
 		</if>
@@ -91,7 +92,7 @@
 		assessResult, assessDate, assetsReportDate,
 		actualFee, assetsFee,
 		noAssetsFee, debtFee, noDebtFee, netAssets,
-		noNetAssets,wordUri,pdfUri,checker,client,assessObj
+		noNetAssets,wordUri,pdfUri,checker,client,assessObj,propertyOwner
 		FROM assets_report
 		where id=#{id}
 	</select>

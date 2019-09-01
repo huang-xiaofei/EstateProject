@@ -28,8 +28,8 @@ public class BaseEstate {
 	private String assessObject;// 估价对象
 	@JSONField(format = "yyyy-MM-dd")
 	private Date valueTime;// 价值时点
-	private String assessAim;// 估价目的,可能有多个
-	private String assessMethod;// 估价方法
+	private String assessAim;// 估价目的
+	private String assessMethod;// 估价方法,可能有多个
 	private String reportType;// 报告类型
 	private String upFileURI;// 上传文件的uri
 	private String branchOffice;// 分公司
@@ -43,6 +43,7 @@ public class BaseEstate {
 	private String state;// 状态
 	private String login;//登录人
 	private String checker;// 审核员
+	private String propertyOwner;//产权人
 	public String getProjectName() {
 		return projectName;
 	}
@@ -95,34 +96,54 @@ public class BaseEstate {
 		return assessAim;
 	}
 
-	public void setAssessAim(Object assessAim) {
-		System.out.println(assessAim);
-		if(assessAim instanceof String[]) {
-			String[] as =(String[]) assessAim;
-			if (null != as && as.length > 0) {
-				this.assessAim =StringUtils.join(as, ",");
-			}
-		}else if(assessAim instanceof String) {
-			this.assessAim =(String) assessAim;
-		}else if(assessAim instanceof JSONArray) {
-			JSONArray js =(JSONArray) assessAim;
-			Iterator<Object> it =js.iterator();
-			String s="";
-			while(it.hasNext()) {
-				s += it.next()+",";
-			}
-			if(!s.isEmpty()) {
-				this.assessAim = s.substring(0,s.length()-1);
-			}
-		}
+	public void setAssessAim(String assessAim) {
+		this.assessAim =assessAim;
+//		System.out.println(assessAim);
+//		if(assessAim instanceof String[]) {
+//			String[] as =(String[]) assessAim;
+//			if (null != as && as.length > 0) {
+//				this.assessAim =StringUtils.join(as, ",");
+//			}
+//		}else if(assessAim instanceof String) {
+//			this.assessAim =(String) assessAim;
+//		}else if(assessAim instanceof JSONArray) {
+//			JSONArray js =(JSONArray) assessAim;
+//			Iterator<Object> it =js.iterator();
+//			String s="";
+//			while(it.hasNext()) {
+//				s += it.next()+",";
+//			}
+//			if(!s.isEmpty()) {
+//				this.assessAim = s.substring(0,s.length()-1);
+//			}
+//		}
 	}
 
 	public String getAssessMethod() {
 		return assessMethod;
 	}
 
-	public void setAssessMethod(String assessMethod) {
-		this.assessMethod = assessMethod;
+	public void setAssessMethod(Object assessMethod) {
+		if(assessMethod instanceof String[]) {
+			String[] as =(String[]) assessMethod;
+			if (null != as && as.length > 0) {
+				this.assessMethod =StringUtils.join(as, ",");
+			}
+		}else if(assessMethod instanceof String) {
+			this.assessMethod =(String) assessMethod;
+		}else if(assessMethod instanceof JSONArray) {
+			JSONArray js =(JSONArray) assessMethod;
+			Iterator<Object> it =js.iterator();
+			String s="";
+			while(it.hasNext()) {
+				s += it.next()+",";
+			}
+			if(!s.isEmpty()) {
+				this.assessMethod = s.substring(0,s.length()-1);
+			}
+		}else {
+			this.assessMethod = (String) assessMethod;
+		}
 	}
 
 	public String getReportType() {
@@ -227,6 +248,14 @@ public class BaseEstate {
 
 	public void setChecker(String checker) {
 		this.checker = checker;
+	}
+
+	public String getPropertyOwner() {
+		return propertyOwner;
+	}
+
+	public void setPropertyOwner(String propertyOwner) {
+		this.propertyOwner = propertyOwner;
 	}
 
 
